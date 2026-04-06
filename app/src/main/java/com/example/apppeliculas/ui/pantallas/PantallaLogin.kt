@@ -40,7 +40,7 @@ fun PantallaLogin() {
                     colors = listOf(
                         Color(0xFF750707),
                         Color(0xFF000000)
-                    ), radius = 2100f
+                    ), radius = 2300f
                 )
             )
     ) {
