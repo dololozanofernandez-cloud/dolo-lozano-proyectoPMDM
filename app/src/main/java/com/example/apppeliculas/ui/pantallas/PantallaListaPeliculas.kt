@@ -9,10 +9,12 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonColors
+import androidx.compose.material3.Card
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -28,6 +30,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.apppeliculas.ui.theme.Fondo
+import com.example.apppeliculas.ui.theme.primario
 
 
 @Preview(showSystemUi = true)
@@ -37,8 +41,8 @@ fun PantallaListaPeliculas(modifier: Modifier = Modifier) {
         modifier = Modifier
             .fillMaxSize()
             .background(
-                Color(0xFF801414)
-            )
+                Fondo
+            ).padding(20.dp)
     ) {
         Box(
             modifier = Modifier
@@ -48,38 +52,35 @@ fun PantallaListaPeliculas(modifier: Modifier = Modifier) {
         ) {
             Text(
                 "Lista de películas",
-                color = Color.Black,
+                color = primario,
                 fontFamily = FontFamily.SansSerif,
                 fontSize = 40.sp,
                 fontWeight = FontWeight.Bold
             )
         }
-        Column(
+        Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .weight(9f)
-                .padding(20.dp)
-                .background(Color.White, shape = RoundedCornerShape(20.dp))
-                .border(3.dp, color = Color.Black, shape = RoundedCornerShape(20.dp)),
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally
+                .weight(1f),
+            contentAlignment = Alignment.BottomCenter
         ) {
+            Card() { }
 
         }
         Box(
             modifier = Modifier
                 .fillMaxWidth()
                 .weight(1f),
-            contentAlignment = Alignment.Center
+            contentAlignment = Alignment.BottomCenter
         ) {
             Button(
                 onClick = {},
                 colors = ButtonColors(
-                    containerColor = Color.Black,
-                    Color.White,
+                    containerColor = primario,
+                    contentColor = Color.White,
                     disabledContainerColor = Color.Black,
                     disabledContentColor = Color.White
-                ), modifier = Modifier.fillMaxWidth(0.89f), shape = RoundedCornerShape(10.dp)
+                ), modifier = Modifier.fillMaxWidth(), shape = CircleShape
             ) {
                 Text(
                     "Añadir",
@@ -89,10 +90,12 @@ fun PantallaListaPeliculas(modifier: Modifier = Modifier) {
                 )
 
             }
-
         }
+
+
     }
 }
+
 
 fun crearPelicula() {
 
