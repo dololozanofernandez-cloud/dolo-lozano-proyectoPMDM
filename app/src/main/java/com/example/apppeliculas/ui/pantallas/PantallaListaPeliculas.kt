@@ -30,6 +30,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.apppeliculas.bbdd.datosApp
 import com.example.apppeliculas.ui.theme.Fondo
 import com.example.apppeliculas.ui.theme.primario
 
@@ -64,7 +65,7 @@ fun PantallaListaPeliculas(modifier: Modifier = Modifier) {
                 .weight(1f),
             contentAlignment = Alignment.BottomCenter
         ) {
-            Card() { }
+            datosApp.listaPeliculas.forEach { pelicula -> Card() { } }
 
         }
         Box(

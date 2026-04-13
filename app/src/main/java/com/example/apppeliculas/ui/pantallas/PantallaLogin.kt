@@ -14,13 +14,11 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
@@ -28,9 +26,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.apppeliculas.R
-import com.example.apppeliculas.ui.lumTextField
+import com.example.apppeliculas.ui.componentes.lumTextField
 import com.example.apppeliculas.ui.theme.Fondo
-import com.example.apppeliculas.ui.theme.Superficie
 import com.example.apppeliculas.ui.theme.primario
 
 @Preview(showSystemUi = true)
