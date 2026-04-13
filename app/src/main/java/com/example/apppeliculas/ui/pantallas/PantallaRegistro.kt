@@ -10,6 +10,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.Icon
@@ -27,7 +28,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.apppeliculas.R
-import com.example.apppeliculas.ui.crearTextField
+import com.example.apppeliculas.ui.lumTextField
+import com.example.apppeliculas.ui.theme.Fondo
+import com.example.apppeliculas.ui.theme.primario
 
 @Preview(showSystemUi = true)
 @Composable
@@ -36,12 +39,7 @@ fun PantallaRegistro() {
         modifier = Modifier
             .fillMaxSize()
             .background(
-                brush = Brush.radialGradient(
-                    colors = listOf(
-                        Color(0xFF750707),
-                        Color(0xFF000000)
-                    ), radius = 2300f
-                )
+                Fondo
             )
     ) {
         Column(
@@ -56,55 +54,56 @@ fun PantallaRegistro() {
                 text = "LUMIÈRE",
                 fontSize = 70.sp,
                 fontWeight = FontWeight.Bold,
-                fontFamily = FontFamily.SansSerif
+                fontFamily = FontFamily.SansSerif,
+                color = primario
             )
             Spacer(modifier = Modifier.height(25.dp))
-            crearTextField(
+            lumTextField(
                 true,
                 "Nombre de usuario",
                 "Debes introducir un usuario",
                 {
                     Icon(
-                        painterResource(R.drawable.usuario), "", tint = Color(0xFF750707),
+                        painterResource(R.drawable.usuario), "", tint = primario,
                         modifier = Modifier.size(32.dp)
                     )
                 },
                 esContraseña = false
             )
             Spacer(modifier = Modifier.height(15.dp))
-            crearTextField(
+            lumTextField(
                 true,
                 "Correo electrónico",
                 "Debes introducir un correo",
                 {
                     Icon(
-                        painterResource(R.drawable.email), "", tint = Color(0xFF750707),
+                        painterResource(R.drawable.email), "", tint = primario,
                         modifier = Modifier.size(32.dp)
                     )
                 },
                 esContraseña = false
             )
             Spacer(modifier = Modifier.height(15.dp))
-            crearTextField(
+            lumTextField(
                 true,
                 "Contraseña",
                 "Introduce una contraseña",
                 {
                     Icon(
-                        painterResource(R.drawable.password), "", tint = Color(0xFF750707),
+                        painterResource(R.drawable.password), "", tint = primario,
                         modifier = Modifier.size(32.dp)
                     )
                 },
                 esContraseña = true
             )
             Spacer(modifier = Modifier.height(15.dp))
-            crearTextField(
+            lumTextField(
                 true,
                 "Repita contraseña",
                 "Contraseñas no iguales",
                 {
                     Icon(
-                        painterResource(R.drawable.password), "", tint = Color(0xFF750707),
+                        painterResource(R.drawable.password), "", tint = primario,
                         modifier = Modifier.size(32.dp)
                     )
                 },
@@ -114,11 +113,11 @@ fun PantallaRegistro() {
             Button(
                 onClick = {},
                 colors = ButtonColors(
-                    containerColor = Color.Black,
-                    Color(0xFF750707),
+                    containerColor = primario,
+                    contentColor = Color.White,
                     disabledContainerColor = Color.Black,
                     disabledContentColor = Color.White
-                ), modifier = Modifier.fillMaxWidth(0.7f), shape = RectangleShape
+                ), modifier = Modifier.fillMaxWidth(0.7f), shape = CircleShape
             ) {
                 Text(
                     "Regístrate",
@@ -147,7 +146,7 @@ fun PantallaRegistro() {
                 contentPadding = PaddingValues(start = 8.dp),
                 colors = ButtonColors(
                     containerColor = Color.Transparent,
-                    contentColor = Color(0xFFC90A0A),
+                    contentColor = primario,
                     disabledContainerColor = Color.Black,
                     disabledContentColor = Color.White
                 )

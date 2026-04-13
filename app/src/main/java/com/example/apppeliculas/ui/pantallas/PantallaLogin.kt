@@ -10,14 +10,15 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.res.painterResource
@@ -27,21 +28,22 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.apppeliculas.R
-import com.example.apppeliculas.ui.crearTextField
+import com.example.apppeliculas.ui.lumTextField
+import com.example.apppeliculas.ui.theme.Fondo
+import com.example.apppeliculas.ui.theme.Superficie
+import com.example.apppeliculas.ui.theme.primario
 
 @Preview(showSystemUi = true)
 @Composable
 fun PantallaLogin() {
+
+
+
     Column(
         modifier = Modifier
             .fillMaxSize()
             .background(
-                brush = Brush.radialGradient(
-                    colors = listOf(
-                        Color(0xFF750707),
-                        Color(0xFF000000)
-                    ), radius = 2300f
-                )
+                Fondo
             )
     ) {
         Column(
@@ -54,7 +56,7 @@ fun PantallaLogin() {
             Icon(
                 painterResource(R.drawable.cintavideo),
                 "LOGO",
-                tint = Color(0xFF131313),
+                tint = primario,
                 modifier = Modifier.size(140.dp)
             )
             Spacer(modifier = Modifier.height(15.dp))
@@ -62,36 +64,37 @@ fun PantallaLogin() {
                 text = "LUMIÈRE",
                 fontSize = 70.sp,
                 fontWeight = FontWeight.Bold,
-                fontFamily = FontFamily.SansSerif
+                fontFamily = FontFamily.SansSerif,
+                color = primario
             )
             Spacer(modifier = Modifier.height(25.dp))
-            crearTextField(
+            lumTextField(
                 true,
                 "Usuario",
                 "Debes introducir un usuario",
                 {
                     Icon(
-                        painterResource(R.drawable.usuario), "", tint = Color(0xFF750707),
+                        painterResource(R.drawable.usuario), "", tint = primario,
                         modifier = Modifier.size(32.dp)
                     )
                 },
                 esContraseña = false
             )
             Spacer(modifier = Modifier.height(15.dp))
-            crearTextField(
+            lumTextField(
                 false,
                 "Contraseña",
                 "",
                 {
                     Icon(
-                        painterResource(R.drawable.password), "", tint = Color(0xFF750707),
+                        painterResource(R.drawable.password), "", tint = primario,
                         modifier = Modifier.size(32.dp)
                     )
                 },
                 esContraseña = true
             )
             Spacer(modifier = Modifier.height(15.dp))
-            crearTextField(
+            lumTextField(
                 true,
                 "Repita contraseña",
                 "Contraseña errónea",
@@ -99,7 +102,7 @@ fun PantallaLogin() {
                     Icon(
                         painterResource(R.drawable.password),
                         "",
-                        tint = Color(0xFF750707),
+                        tint = primario,
                         modifier = Modifier.size(32.dp)
                     )
                 },
@@ -109,11 +112,11 @@ fun PantallaLogin() {
             Button(
                 onClick = {},
                 colors = ButtonColors(
-                    containerColor = Color.Black,
-                    Color(0xFF750707),
+                    containerColor = primario,
+                    contentColor = Color.White,
                     disabledContainerColor = Color.Black,
                     disabledContentColor = Color.White
-                ), modifier = Modifier.fillMaxWidth(0.7f), shape = RectangleShape
+                ), modifier = Modifier.fillMaxWidth(0.7f), shape = CircleShape
             ) {
                 Text(
                     "Entrar",
@@ -142,7 +145,7 @@ fun PantallaLogin() {
                 contentPadding = PaddingValues(start = 8.dp),
                 colors = ButtonColors(
                     containerColor = Color.Transparent,
-                    contentColor = Color(0xFFC90A0A),
+                    contentColor = primario,
                     disabledContainerColor = Color.Black,
                     disabledContentColor = Color.White
                 )

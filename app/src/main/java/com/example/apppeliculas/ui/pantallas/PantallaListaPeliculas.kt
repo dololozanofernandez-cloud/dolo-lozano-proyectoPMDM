@@ -28,13 +28,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import kotlin.math.acos
 
-//.shadow(
-//                    elevation = 1.dp,
-//                    shape = RoundedCornerShape(20.dp),
-//                    spotColor = Color(0xFF750707)
-//                )
 
 @Preview(showSystemUi = true)
 @Composable
@@ -43,12 +37,7 @@ fun PantallaListaPeliculas(modifier: Modifier = Modifier) {
         modifier = Modifier
             .fillMaxSize()
             .background(
-                brush = Brush.radialGradient(
-                    colors = listOf(
-                        Color(0xFF000000),
-                        Color(0xFF750707)
-                    ), radius = 800f
-                )
+                Color(0xFF801414)
             )
     ) {
         Box(
