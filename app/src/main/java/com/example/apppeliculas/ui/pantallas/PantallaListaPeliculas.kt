@@ -15,6 +15,9 @@ import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.CardElevation
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -31,6 +34,7 @@ import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.apppeliculas.bbdd.datosApp
+import com.example.apppeliculas.model.Pelicula
 import com.example.apppeliculas.ui.theme.Fondo
 import com.example.apppeliculas.ui.theme.primario
 
@@ -61,11 +65,14 @@ fun PantallaListaPeliculas(modifier: Modifier = Modifier) {
         }
         Box(
             modifier = Modifier
-                .fillMaxWidth()
-                .weight(1f),
+                .fillMaxWidth(),
             contentAlignment = Alignment.BottomCenter
         ) {
-            datosApp.listaPeliculas.forEach { pelicula -> Card() { } }
+            Column(modifier = Modifier.fillMaxWidth().background(MaterialTheme.colorScheme.surface)) {
+                datosApp.listaPeliculas.forEach { pelicula -> Card() { Text(pelicula.genero) } }
+
+               }
+
 
         }
         Box(
@@ -98,6 +105,8 @@ fun PantallaListaPeliculas(modifier: Modifier = Modifier) {
 }
 
 
-fun crearPelicula() {
+@Composable
+fun ItemPelicula(p: Pelicula) {
+    Card() { }
 
 }

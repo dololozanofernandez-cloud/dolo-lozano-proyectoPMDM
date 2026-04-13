@@ -23,8 +23,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             MaterialTheme {
-                PantallaListaPeliculas()
-
+               PantallaListaPeliculas()
             }
         }
     }
