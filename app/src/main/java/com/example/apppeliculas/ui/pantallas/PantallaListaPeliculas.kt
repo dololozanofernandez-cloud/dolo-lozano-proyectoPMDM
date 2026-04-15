@@ -6,8 +6,11 @@ import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -26,6 +29,7 @@ import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
+import androidx.compose.ui.modifier.modifierLocalConsumer
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
@@ -35,8 +39,10 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.apppeliculas.bbdd.datosApp
 import com.example.apppeliculas.model.Pelicula
+import com.example.apppeliculas.ui.componentes.lumCards
 import com.example.apppeliculas.ui.theme.Fondo
 import com.example.apppeliculas.ui.theme.primario
+import kotlin.time.measureTime
 
 
 @Preview(showSystemUi = true)
@@ -47,12 +53,12 @@ fun PantallaListaPeliculas(modifier: Modifier = Modifier) {
             .fillMaxSize()
             .background(
                 Fondo
-            ).padding(20.dp)
+            )
+            .padding(20.dp)
     ) {
         Box(
             modifier = Modifier
-                .fillMaxWidth()
-                .weight(1f),
+                .fillMaxWidth().weight(0.5f),
             contentAlignment = Alignment.BottomCenter
         ) {
             Text(
@@ -63,22 +69,19 @@ fun PantallaListaPeliculas(modifier: Modifier = Modifier) {
                 fontWeight = FontWeight.Bold
             )
         }
+        Spacer(modifier = Modifier.height(50.dp))
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth().weight(3.5f)
+                    .background(Fondo)
+            ) {
+                datosApp.listaPeliculas.forEach { pelicula -> lumCards(pelicula) }
+            }
+
+        Spacer(modifier = Modifier.height(20.dp))
         Box(
             modifier = Modifier
-                .fillMaxWidth(),
-            contentAlignment = Alignment.BottomCenter
-        ) {
-            Column(modifier = Modifier.fillMaxWidth().background(MaterialTheme.colorScheme.surface)) {
-                datosApp.listaPeliculas.forEach { pelicula -> Card() { Text(pelicula.genero) } }
-
-               }
-
-
-        }
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .weight(1f),
+                .fillMaxWidth().weight(0.5f),
             contentAlignment = Alignment.BottomCenter
         ) {
             Button(
@@ -99,14 +102,5 @@ fun PantallaListaPeliculas(modifier: Modifier = Modifier) {
 
             }
         }
-
-
     }
-}
-
-
-@Composable
-fun ItemPelicula(p: Pelicula) {
-    Card() { }
-
 }
