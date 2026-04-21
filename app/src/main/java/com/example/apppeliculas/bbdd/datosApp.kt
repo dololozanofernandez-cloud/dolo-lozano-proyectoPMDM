@@ -4,34 +4,41 @@ import com.example.apppeliculas.model.Pelicula
 
 object datosApp {
     val listaPeliculas = listOf(
-        // CIENCIA FICCIÓN & ACCIÓN
-        Pelicula("Interstellar", "Ciencia Ficción", "Christopher Nolan", 8.7),
-        Pelicula("The Matrix", "Acción", "Lana y Lilly Wachowski", 8.7),
-        Pelicula("Blade Runner 2049", "Ciencia Ficción", "Denis Villeneuve", 8.0),
-        Pelicula("Mad Max: Fury Road", "Acción", "George Miller", 8.1),
 
-        // DRAMA & SUSPENSO
-        Pelicula("The Godfather", "Drama", "Francis Ford Coppola", 9.2),
-        Pelicula("Parasite", "Thriller", "Bong Joon-ho", 8.5),
-        Pelicula("The Prestige", "Misterio", "Christopher Nolan", 8.5),
-        Pelicula("Whiplash", "Drama", "Damien Chazelle", 8.5),
+        // Clásicos y Nouvelle Vague
+        Pelicula(
+            "Le Fabuleux Destin d'Amélie Poulain",
+            "Comedia Romántica",
+            "Jean-Pierre Jeunet",
+            8.3
+        ),
+        Pelicula("Les Quatre Cents Coups", "Drama", "François Truffaut", 8.1),
+        Pelicula("À bout de souffle", "Crimen/Drama", "Jean-Luc Godard", 7.7),
+        Pelicula("Jules et Jim", "Drama/Romance", "François Truffaut", 7.7),
+        Pelicula("Playtime", "Comedia", "Jacques Tati", 7.8),
 
-        // ANIMACIÓN
-        Pelicula("Spirited Away", "Animación", "Hayao Miyazaki", 8.6),
-        Pelicula("Coco", "Animación", "Lee Unkrich", 8.4),
-        Pelicula("Spider-Man: Into the Spider-Verse", "Animación", "Peter Ramsey", 8.4),
+        // Dramas e Historia
+        Pelicula("Portrait de la jeune fille en feu", "Drama/Romance", "Céline Sciamma", 8.1),
+        Pelicula("La Haine", "Crimen/Drama", "Mathieu Kassovitz", 8.1),
+        Pelicula("Anatomie d'une chute", "Thriller/Drama", "Justine Triet", 7.7),
+        Pelicula("The Artist", "Comedia/Drama", "Michel Hazanavicius", 7.9),
+        Pelicula("Un prophète", "Crimen/Drama", "Jacques Audiard", 7.8),
 
-        // TERROR
-        Pelicula("The Shining", "Terror", "Stanley Kubrick", 8.4),
-        Pelicula("Get Out", "Terror", "Jordan Peele", 7.8),
-        Pelicula("Hereditary", "Terror", "Ari Aster", 7.3),
+        // Éxitos Populares y Comedia
+        Pelicula("Intouchables", "Comedia/Drama", "Olivier Nakache", 8.5),
+        Pelicula("Taxi", "Acción/Comedia", "Gérard Pirès", 7.0),
+        Pelicula("Le dîner de cons", "Comedia", "Francis Veber", 7.6),
+        Pelicula("Astérix & Obélix: Mission Cléopâtre", "Comedia", "Alain Chabat", 6.7),
 
-        // COMEDIA & OTROS
-        Pelicula("The Grand Budapest Hotel", "Comedia", "Wes Anderson", 8.1),
-        Pelicula("The Wolf of Wall Street", "Comedia", "Martin Scorsese", 8.2),
-        Pelicula("La La Land", "Musical", "Damien Chazelle", 8.0),
-        Pelicula("Everything Everywhere All At Once", "Aventura", "Daniel Kwan", 7.8),
-        Pelicula("Cinema Paradiso", "Drama", "Giuseppe Tornatore", 8.5),
-        Pelicula("Fight Club", "Drama", "David Fincher", 8.8)
+        // Animación y Fantasía
+        Pelicula("La Planète sauvage", "Animación/Ciencia Ficción", "René Laloux", 8.0),
+        Pelicula("La Tortue Rouge", "Animación/Drama", "Michael Dudok de Wit", 7.5),
+        Pelicula("Delicatessen", "Comedia/Fantasía", "Jean-Pierre Jeunet", 7.5),
+
+        // Cine Contemporáneo
+        Pelicula("Titane", "Terror/Drama", "Julia Ducournau", 6.6),
+        Pelicula("Climax", "Terror/Drama", "Gaspar Noé", 6.9),
+        Pelicula("Elle", "Thriller/Drama", "Paul Verhoeven", 7.1)
     )
+
 }

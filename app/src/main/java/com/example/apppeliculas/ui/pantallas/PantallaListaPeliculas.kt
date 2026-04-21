@@ -1,5 +1,6 @@
 package com.example.apppeliculas.ui.pantallas
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -12,6 +13,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.AlertDialog
@@ -42,65 +44,32 @@ import com.example.apppeliculas.model.Pelicula
 import com.example.apppeliculas.ui.componentes.lumCards
 import com.example.apppeliculas.ui.theme.Fondo
 import com.example.apppeliculas.ui.theme.primario
+import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.BottomAppBar
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.material3.contentColorFor
+import androidx.compose.ui.text.style.TextAlign
+import com.example.apppeliculas.ui.componentes.lumBotonAñadir
+import com.example.apppeliculas.ui.componentes.lumContent
+import com.example.apppeliculas.ui.componentes.lumToolBar
 import kotlin.time.measureTime
 
 
+@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Preview(showSystemUi = true)
 @Composable
-fun PantallaListaPeliculas(modifier: Modifier = Modifier) {
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(
-                Fondo
-            )
-            .padding(20.dp)
-    ) {
-        Box(
-            modifier = Modifier
-                .fillMaxWidth().weight(0.5f),
-            contentAlignment = Alignment.BottomCenter
-        ) {
-            Text(
-                "Lista de películas",
-                color = primario,
-                fontFamily = FontFamily.SansSerif,
-                fontSize = 40.sp,
-                fontWeight = FontWeight.Bold
-            )
-        }
-        Spacer(modifier = Modifier.height(50.dp))
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth().weight(3.5f)
-                    .background(Fondo)
-            ) {
-                datosApp.listaPeliculas.forEach { pelicula -> lumCards(pelicula) }
-            }
+fun PantallaListaPeliculas() {
+    Scaffold(
+        topBar = { lumToolBar() },
+        content = { lumContent() },
+        floatingActionButton = { lumBotonAñadir() })
 
-        Spacer(modifier = Modifier.height(20.dp))
-        Box(
-            modifier = Modifier
-                .fillMaxWidth().weight(0.5f),
-            contentAlignment = Alignment.BottomCenter
-        ) {
-            Button(
-                onClick = {},
-                colors = ButtonColors(
-                    containerColor = primario,
-                    contentColor = Color.White,
-                    disabledContainerColor = Color.Black,
-                    disabledContentColor = Color.White
-                ), modifier = Modifier.fillMaxWidth(), shape = CircleShape
-            ) {
-                Text(
-                    "Añadir",
-                    fontSize = 20.sp,
-                    fontFamily = FontFamily.SansSerif
-
-                )
-
-            }
-        }
-    }
 }
+
+
+
+
+

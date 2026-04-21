@@ -24,7 +24,7 @@ import com.example.apppeliculas.model.Pelicula
 import com.example.apppeliculas.ui.theme.primario
 
 @Composable
-fun lumCards(pelicula : Pelicula) {
+fun lumCards(pelicula: Pelicula) {
     Card(
         modifier = Modifier
             .padding(8.dp)
@@ -52,12 +52,12 @@ fun lumCards(pelicula : Pelicula) {
             Column(
                 modifier = Modifier
                     .weight(0.7f)
-                    .padding(16.dp)
+                    .padding(10.dp)
                     .fillMaxHeight(),
                 verticalArrangement = Arrangement.Center
             ) {
                 Text(
-                    text = "Titulo ${pelicula.titulo}",
+                    text = "${pelicula.titulo}",
                     style = MaterialTheme.typography.titleLarge,
                     fontWeight = FontWeight.Bold,
                     maxLines = 1,
@@ -67,27 +67,34 @@ fun lumCards(pelicula : Pelicula) {
                 Spacer(modifier = Modifier.height(4.dp))
 
                 Text(
-                    text = "Género ${pelicula.genero}",
+                    text = "${pelicula.genero}",
+                    style = MaterialTheme.typography.bodyMedium,
+                    color = Color.Gray
+                )
+                Spacer(modifier = Modifier.height(4.dp))
+
+                Text(
+                    text = "${pelicula.director}",
                     style = MaterialTheme.typography.bodyMedium,
                     color = Color.Gray
                 )
 
-                Spacer(modifier = Modifier.height(12.dp))
-
-
-                Surface(
-                    color = MaterialTheme.colorScheme.surface,
-                    shape = RoundedCornerShape(8.dp)
-                ) {
-                    Text(
-                        text = "⭐ ${pelicula.puntuacion}",
-                        modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp),
-                        style = MaterialTheme.typography.labelSmall,
-                        fontWeight = FontWeight.Bold,
-                        color = MaterialTheme.colorScheme.onSurface
-                    )
-                }
             }
+            Box(
+                modifier = Modifier
+                    .weight(0.2f)
+                    .fillMaxHeight(),
+                contentAlignment = Alignment.Center
+            ) {
+
+                Text(
+                    text = "❤  ${pelicula.puntuacion}",
+                    modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp),
+                    fontWeight = FontWeight.Bold
+                )
+            }
+
+
         }
     }
 }
