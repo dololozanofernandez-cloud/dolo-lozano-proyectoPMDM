@@ -24,11 +24,11 @@ fun lumToolBar(texto : String) {
                 fontFamily = FontFamily.SansSerif,
                 fontSize = 35.sp,
                 fontWeight = FontWeight.Bold,
-                color = primario
+                color = MaterialTheme.colorScheme.primary
             )
         },
         colors = TopAppBarDefaults.topAppBarColors(
-            containerColor = Fondo
+            containerColor = MaterialTheme.colorScheme.background
         )
     )
 }
