@@ -3,6 +3,8 @@ package com.example.apppeliculas.ui.componentes
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonColors
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
@@ -19,7 +21,7 @@ fun lumBotonAñadir(navKey: NavKey, backStack : NavBackStack<NavKey>) {
 
     Button(
         onClick = {backStack.add(navKey)},
-        colors = ButtonColors(
+        colors = ButtonDefaults.buttonColors(
             containerColor = MaterialTheme.colorScheme.primary,
             contentColor = MaterialTheme.colorScheme.onPrimary,
             disabledContainerColor = Color.Black,

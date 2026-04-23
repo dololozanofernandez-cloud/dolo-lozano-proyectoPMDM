@@ -59,7 +59,7 @@ fun lumCards(pelicula: Pelicula, backStack: NavBackStack<NavKey>) {
                 verticalArrangement = Arrangement.Center
             ) {
                 Text(
-                    text = "${pelicula.titulo}",
+                    text = pelicula.titulo,
                     style = MaterialTheme.typography.titleLarge,
                     fontWeight = FontWeight.Bold,
                     maxLines = 1,
@@ -69,14 +69,14 @@ fun lumCards(pelicula: Pelicula, backStack: NavBackStack<NavKey>) {
                 Spacer(modifier = Modifier.height(4.dp))
 
                 Text(
-                    text = "${pelicula.genero}",
+                    text = pelicula.genero,
                     style = MaterialTheme.typography.bodyMedium,
                     color = Color.Gray
                 )
                 Spacer(modifier = Modifier.height(4.dp))
 
                 Text(
-                    text = "${pelicula.director}",
+                    text = pelicula.director,
                     style = MaterialTheme.typography.bodyMedium,
                     color = Color.Gray
                 )

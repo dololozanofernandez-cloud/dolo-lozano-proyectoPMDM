@@ -5,19 +5,15 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonColors
-import androidx.compose.material3.Icon
-import androidx.compose.material3.Scaffold
+import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -27,24 +23,16 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.layout.ModifierLocalBeyondBoundsLayout
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation3.runtime.NavBackStack
 import androidx.navigation3.runtime.NavKey
-import com.example.apppeliculas.R
 import com.example.apppeliculas.bbdd.datosApp
+import com.example.apppeliculas.modelo.Pelicula
 import com.example.apppeliculas.navegacion.PantallaListaPeliculasKey
-import com.example.apppeliculas.navegacion.PantallaLoginKey
-import com.example.apppeliculas.ui.componentes.lumBotonAñadir
 import com.example.apppeliculas.ui.componentes.lumTextField
-import com.example.apppeliculas.ui.componentes.lumToolBar
-import com.example.apppeliculas.ui.theme.Fondo
-import com.example.apppeliculas.ui.theme.primario
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 
@@ -54,7 +42,7 @@ fun PantalaCrearPelicula(backStack: NavBackStack<NavKey>) {
         modifier = Modifier
             .fillMaxSize()
             .background(
-                MaterialTheme.colorScheme.backround
+                MaterialTheme.colorScheme.background
             ),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
@@ -113,26 +101,19 @@ fun PantalaCrearPelicula(backStack: NavBackStack<NavKey>) {
 
         Button(
             onClick = {
-                pelicula = Pelicula (titulo,genero,director,puntuacion)
-                appDatos.listaPeliculas.add(pelicula)
+                var pelicula = Pelicula(titulo, genero, director, puntuacion)
+                datosApp.listaPeliculas.add(pelicula)
                 titulo = ""
                 genero = ""
                 director = ""
                 puntuacion = ""
-                if(backStack.size > 1){
-                    backStack.removeAt(backStack.size -1)
-                }else{
-                    backStack.clear
-                    backStack.add(PantallaListaPeliculasKey)   
-                }
-                     
     
             },
-            colors = ButtonColors(
+            colors = ButtonDefaults.buttonColors(
                 containerColor = MaterialTheme.colorScheme.primary,
                 contentColor = MaterialTheme.colorScheme.onPrimary,
                 disabledContainerColor = Color.Black,
-                disabledContentColor = MaterialTheme.colorScheme.onPrimary,
+                disabledContentColor = MaterialTheme.colorScheme.onPrimary
             ), modifier = Modifier.fillMaxWidth(0.7f), shape = CircleShape
         ) {
             Text(

@@ -14,7 +14,9 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonColors
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -147,7 +149,7 @@ fun PantallaRegistro(backStack: NavBackStack<NavKey>) {
                     }
 
                 },
-                colors = ButtonColors(
+                colors = ButtonDefaults.buttonColors(
                     containerColor = MaterialTheme.colorScheme.primary,
                     contentColor = MaterialTheme.colorScheme.onPrimary,
                     disabledContainerColor = Color.Black,
@@ -180,7 +182,7 @@ fun PantallaRegistro(backStack: NavBackStack<NavKey>) {
             Button(
                 onClick = { backStack.add(PantallaLoginKey) },
                 contentPadding = PaddingValues(start = 8.dp),
-                colors = ButtonColors(
+                colors = ButtonDefaults.buttonColors(
                     containerColor = Color.Transparent,
                     contentColor = MaterialTheme.colorScheme.primary,
                     disabledContainerColor = Color.Black,

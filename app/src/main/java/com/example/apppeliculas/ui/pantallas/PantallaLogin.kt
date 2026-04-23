@@ -14,7 +14,9 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonColors
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -145,7 +147,7 @@ val formularioValido = usuario.isNotEmpty() && contraseña.isNotEmpty() && contr
             Button(
                 onClick = {backStack.clear()
                     backStack.add((PantallaListaPeliculasKey))},
-                colors = ButtonColors(
+                colors = ButtonDefaults.buttonColors(
                     containerColor = MaterialTheme.colorScheme.primary,
                     contentColor = MaterialTheme.colorScheme.onPrimary,
                     disabledContainerColor = Color.Black,
@@ -178,7 +180,7 @@ val formularioValido = usuario.isNotEmpty() && contraseña.isNotEmpty() && contr
             Button(
                 onClick = {backStack.add(PantallaRegistroKey)},
                 contentPadding = PaddingValues(start = 8.dp),
-                colors = ButtonColors(
+                colors = ButtonDefaults.buttonColors(
                     containerColor = Color.Transparent,
                     contentColor = MaterialTheme.colorScheme.primary,
                     disabledContainerColor = Color.Black,
