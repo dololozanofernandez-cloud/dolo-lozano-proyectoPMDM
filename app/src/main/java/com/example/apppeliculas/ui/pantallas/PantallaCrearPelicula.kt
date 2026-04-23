@@ -119,8 +119,14 @@ fun PantalaCrearPelicula(backStack: NavBackStack<NavKey>) {
                 genero = ""
                 director = ""
                 puntuacion = ""
-                
-
+                if(backStack.size > 1){
+                    backStack.removeAt(backStack.size -1)
+                }else{
+                    backStack.clear
+                    backStack.add(PantallaListaPeliculasKey)   
+                }
+                     
+    
             },
             colors = ButtonColors(
                 containerColor = MaterialTheme.colorScheme.primary,
