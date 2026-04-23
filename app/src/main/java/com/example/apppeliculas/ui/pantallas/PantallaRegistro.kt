@@ -72,7 +72,7 @@ fun PantallaRegistro(backStack: NavBackStack<NavKey>) {
                 fontSize = 70.sp,
                 fontWeight = FontWeight.Bold,
                 fontFamily = FontFamily.SansSerif,
-                color = primario
+                color =  MaterialTheme.colorScheme.primary
             )
             Spacer(modifier = Modifier.height(25.dp))
 
@@ -84,7 +84,7 @@ fun PantallaRegistro(backStack: NavBackStack<NavKey>) {
                 textoErrorAbajo = "Debes introducir un usuario",
                 icono = {
                     Icon(
-                        painterResource(R.drawable.usuario), "", tint = primario,
+                        painterResource(R.drawable.usuario), "", tint = MaterialTheme.colorScheme.primary,
                         modifier = Modifier.size(32.dp)
                     )
                 },
@@ -100,7 +100,7 @@ fun PantallaRegistro(backStack: NavBackStack<NavKey>) {
                 textoErrorAbajo = "Debes introducir un correo",
                 icono = {
                     Icon(
-                        painterResource(R.drawable.email), "", tint = primario,
+                        painterResource(R.drawable.email), "", tint = MaterialTheme.colorScheme.primary,
                         modifier = Modifier.size(32.dp)
                     )
                 },
@@ -116,7 +116,7 @@ fun PantallaRegistro(backStack: NavBackStack<NavKey>) {
                 textoErrorAbajo = "Introduce una contraseña",
                 icono = {
                     Icon(
-                        painterResource(R.drawable.password), "", tint = primario,
+                        painterResource(R.drawable.password), "", tint = MaterialTheme.colorScheme.primary,
                         modifier = Modifier.size(32.dp)
                     )
                 },
@@ -132,7 +132,7 @@ fun PantallaRegistro(backStack: NavBackStack<NavKey>) {
                 "Contraseñas no iguales",
                 {
                     Icon(
-                        painterResource(R.drawable.password), "", tint = primario,
+                        painterResource(R.drawable.password), "", tint = MaterialTheme.colorScheme.primary,
                         modifier = Modifier.size(32.dp)
                     )
                 },
@@ -148,10 +148,10 @@ fun PantallaRegistro(backStack: NavBackStack<NavKey>) {
 
                 },
                 colors = ButtonColors(
-                    containerColor = primario,
-                    contentColor = Color.White,
+                    containerColor = MaterialTheme.colorScheme.primary,
+                    contentColor = MaterialTheme.colorScheme.onPrimary,
                     disabledContainerColor = Color.Black,
-                    disabledContentColor = Color.White
+                    disabledContentColor = MaterialTheme.colorScheme.onPrimary
                 ), modifier = Modifier.fillMaxWidth(0.7f), shape = CircleShape,
                 enabled = formularioValido
             ) {
@@ -175,16 +175,16 @@ fun PantallaRegistro(backStack: NavBackStack<NavKey>) {
                 "¿Ya eres miembro?",
                 fontSize = 14.sp,
                 fontFamily = FontFamily.SansSerif,
-                color = Color.White
+                color = MaterialTheme.colorScheme.onPrimary
             )
             Button(
                 onClick = { backStack.add(PantallaLoginKey) },
                 contentPadding = PaddingValues(start = 8.dp),
                 colors = ButtonColors(
                     containerColor = Color.Transparent,
-                    contentColor = primario,
+                    contentColor = MaterialTheme.colorScheme.primary,
                     disabledContainerColor = Color.Black,
-                    disabledContentColor = Color.White
+                    disabledContentColor = MaterialTheme.colorScheme.onPrimary
                 )
             ) {
                 Text(
