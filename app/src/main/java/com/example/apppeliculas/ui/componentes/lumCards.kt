@@ -20,12 +20,14 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import com.example.apppeliculas.model.Pelicula
-import com.example.apppeliculas.ui.theme.primario
+import androidx.navigation3.runtime.NavBackStack
+import androidx.navigation3.runtime.NavKey
+import com.example.apppeliculas.modelo.Pelicula
+import com.example.apppeliculas.navegacion.PantallaCrearPeliculaKey
 
 @Composable
-fun lumCards(pelicula: Pelicula) {
-    Card(
+fun lumCards(pelicula: Pelicula, backStack: NavBackStack<NavKey>) {
+    Card(onClick = {backStack.add(PantallaCrearPeliculaKey)},
         modifier = Modifier
             .padding(8.dp)
             .fillMaxWidth()

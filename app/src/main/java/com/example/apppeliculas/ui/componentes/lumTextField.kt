@@ -2,8 +2,6 @@ package com.example.apppeliculas.ui.componentes
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Info
 import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
@@ -28,23 +26,25 @@ import com.example.apppeliculas.ui.theme.primario
 
 @Composable
 fun lumTextField(
+    value: String,
+    onValueChange: (String)-> Unit,
     vacio: Boolean = false,
     etiqueta: String,
     textoErrorAbajo: String,
     icono: @Composable (() -> Unit)? = null,
     esContraseña: Boolean
 ) {
-    var texto by rememberSaveable { mutableStateOf("") }
+
     var textoError = false
     if (vacio) {
-        textoError = texto.isEmpty()
+        textoError = value.isEmpty()
     }
     OutlinedTextField(
-        value = texto,
+        value = value,
         onValueChange =
-            { texto = it },
+            onValueChange,
         label = {
-            Text(etiqueta, color = Color.Gray)
+            Text(text = etiqueta, color = Color.Gray)
         },
         colors = TextFieldDefaults.colors(
             unfocusedContainerColor = Color.White,
@@ -53,23 +53,18 @@ fun lumTextField(
             focusedIndicatorColor = Color.White,
 
             errorContainerColor = Color.White,
-            errorIndicatorColor = Color.White,
-            errorLabelColor = Color.White,
-            focusedTextColor = Color.White,
-            unfocusedTextColor = Color.White
-
-
-
+            errorIndicatorColor = Color.Red,
+            errorLabelColor = Color.Red,
+            focusedTextColor = Color.Black,
+            unfocusedTextColor = Color.Black
         ),
         shape = RectangleShape,
         isError = textoError,
         trailingIcon = {
             if (textoError) {
                 Icon(
-                    imageVector = Icons.Filled.Info,
-                    contentDescription = "Error",
-                    tint = primario
-                )
+                    painterResource(R.drawable.outline_error_24),"" , tint = primario)
+
             }else if (esContraseña) {
                 Icon(painterResource(R.drawable.outline_visibility_off_24),"" , tint = primario)
             }

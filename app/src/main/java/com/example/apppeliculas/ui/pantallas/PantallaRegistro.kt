@@ -1,5 +1,6 @@
 package com.example.apppeliculas.ui.pantallas
 
+import android.content.Context
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -16,23 +17,41 @@ import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.input.key.Key
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation3.runtime.NavBackStack
+import androidx.navigation3.runtime.NavKey
 import com.example.apppeliculas.R
+import com.example.apppeliculas.navegacion.PantallaLoginKey
+import com.example.apppeliculas.navegacion.PantallaRegistroKey
 import com.example.apppeliculas.ui.componentes.lumTextField
 import com.example.apppeliculas.ui.theme.Fondo
 import com.example.apppeliculas.ui.theme.primario
 
-@Preview(showSystemUi = true)
 @Composable
-fun PantallaRegistro() {
+fun PantallaRegistro(backStack: NavBackStack<NavKey>) {
+
+    val context = LocalContext.current
+    val prefs = context.getSharedPreferences("datos_app", Context.MODE_PRIVATE)
+    var usuario by rememberSaveable() { mutableStateOf("") }
+    var email by rememberSaveable() { mutableStateOf("") }
+    var contraseña by rememberSaveable() { mutableStateOf("") }
+    var contraseñaRep by rememberSaveable() { mutableStateOf("") }
+
+    var formularioValido = usuario.isNotEmpty() && email.isNotEmpty() && contraseña.isNotEmpty() && contraseña == contraseñaRep
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -56,11 +75,14 @@ fun PantallaRegistro() {
                 color = primario
             )
             Spacer(modifier = Modifier.height(25.dp))
+
             lumTextField(
-                true,
-                "Nombre de usuario",
-                "Debes introducir un usuario",
-                {
+                value = usuario,
+                onValueChange = { usuario = it },
+                vacio = true,
+                etiqueta = "Nombre de usuario",
+                textoErrorAbajo = "Debes introducir un usuario",
+                icono = {
                     Icon(
                         painterResource(R.drawable.usuario), "", tint = primario,
                         modifier = Modifier.size(32.dp)
@@ -69,11 +91,14 @@ fun PantallaRegistro() {
                 esContraseña = false
             )
             Spacer(modifier = Modifier.height(15.dp))
+
             lumTextField(
-                true,
-                "Correo electrónico",
-                "Debes introducir un correo",
-                {
+                value = email,
+                onValueChange = { email = it },
+                vacio = true,
+                etiqueta = "Correo electrónico",
+                textoErrorAbajo = "Debes introducir un correo",
+                icono = {
                     Icon(
                         painterResource(R.drawable.email), "", tint = primario,
                         modifier = Modifier.size(32.dp)
@@ -82,11 +107,14 @@ fun PantallaRegistro() {
                 esContraseña = false
             )
             Spacer(modifier = Modifier.height(15.dp))
+
             lumTextField(
-                true,
-                "Contraseña",
-                "Introduce una contraseña",
-                {
+                value = contraseña,
+                onValueChange = { contraseña = it },
+                vacio = true,
+                etiqueta = "Contraseña",
+                textoErrorAbajo = "Introduce una contraseña",
+                icono = {
                     Icon(
                         painterResource(R.drawable.password), "", tint = primario,
                         modifier = Modifier.size(32.dp)
@@ -95,7 +123,10 @@ fun PantallaRegistro() {
                 esContraseña = true
             )
             Spacer(modifier = Modifier.height(15.dp))
+
             lumTextField(
+                value = contraseñaRep,
+                onValueChange = { contraseñaRep = it },
                 true,
                 "Repita contraseña",
                 "Contraseñas no iguales",
@@ -109,13 +140,20 @@ fun PantallaRegistro() {
             )
             Spacer(modifier = Modifier.height(45.dp))
             Button(
-                onClick = {},
+                onClick = {
+                    prefs.edit().putString("usuario", usuario).apply()
+                    if (backStack.size > 1) {
+                        backStack.removeAt(backStack.size - 1)
+                    }
+
+                },
                 colors = ButtonColors(
                     containerColor = primario,
                     contentColor = Color.White,
                     disabledContainerColor = Color.Black,
                     disabledContentColor = Color.White
-                ), modifier = Modifier.fillMaxWidth(0.7f), shape = CircleShape
+                ), modifier = Modifier.fillMaxWidth(0.7f), shape = CircleShape,
+                enabled = formularioValido
             ) {
                 Text(
                     "Regístrate",
@@ -140,7 +178,7 @@ fun PantallaRegistro() {
                 color = Color.White
             )
             Button(
-                onClick = {},
+                onClick = { backStack.add(PantallaLoginKey) },
                 contentPadding = PaddingValues(start = 8.dp),
                 colors = ButtonColors(
                     containerColor = Color.Transparent,

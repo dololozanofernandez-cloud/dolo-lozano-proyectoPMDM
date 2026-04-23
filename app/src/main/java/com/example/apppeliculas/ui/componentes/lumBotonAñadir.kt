@@ -8,14 +8,17 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.unit.sp
+import androidx.navigation3.runtime.NavBackStack
+import androidx.navigation3.runtime.NavKey
+import com.example.apppeliculas.navegacion.PantallaCrearPeliculaKey
 import com.example.apppeliculas.ui.theme.primario
 
 
 @Composable
-fun lumBotonAñadir() {
+fun lumBotonAñadir(navKey: NavKey, backStack : NavBackStack<NavKey>) {
 
     Button(
-        onClick = {},
+        onClick = {backStack.add(navKey)},
         colors = ButtonColors(
             containerColor = primario,
             contentColor = Color.White,

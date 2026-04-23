@@ -1,9 +1,9 @@
 package com.example.apppeliculas.bbdd
 
-import com.example.apppeliculas.model.Pelicula
+import com.example.apppeliculas.modelo.Pelicula
 
 object datosApp {
-    val listaPeliculas = listOf(
+    var listaPeliculas = listOf(
 
         // Clásicos y Nouvelle Vague
         Pelicula(
