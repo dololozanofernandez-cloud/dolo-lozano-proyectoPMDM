@@ -20,10 +20,10 @@ fun lumBotonAñadir(navKey: NavKey, backStack : NavBackStack<NavKey>) {
     Button(
         onClick = {backStack.add(navKey)},
         colors = ButtonColors(
-            containerColor = primario,
-            contentColor = Color.White,
+            containerColor = MaterialTheme.colorScheme.primary,
+            contentColor = MaterialTheme.colorScheme.onPrimary,
             disabledContainerColor = Color.Black,
-            disabledContentColor = Color.White
+            disabledContentColor = MaterialTheme.colorScheme.onPrimary
         ), shape = CircleShape
     ) {
         Text(
