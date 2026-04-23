@@ -47,14 +47,14 @@ fun lumTextField(
             Text(text = etiqueta, color = Color.Gray)
         },
         colors = TextFieldDefaults.colors(
-            unfocusedContainerColor = Color.White,
-            focusedContainerColor = Color.White,
-            unfocusedIndicatorColor = Color.White,
-            focusedIndicatorColor = Color.White,
+            unfocusedContainerColor = MaterialTheme.colorScheme.onPrimary,
+            focusedContainerColor = MaterialTheme.colorScheme.onPrimary,
+            unfocusedIndicatorColor =MaterialTheme.colorScheme.onPrimary,
+            focusedIndicatorColor = MaterialTheme.colorScheme.onPrimary,
 
-            errorContainerColor = Color.White,
-            errorIndicatorColor = Color.Red,
-            errorLabelColor = Color.Red,
+            errorContainerColor = MaterialTheme.colorScheme.onPrimary,
+            errorIndicatorColor = MaterialTheme.colorScheme.primary,
+            errorLabelColor = MaterialTheme.colorScheme.primary,
             focusedTextColor = Color.Black,
             unfocusedTextColor = Color.Black
         ),
@@ -63,10 +63,10 @@ fun lumTextField(
         trailingIcon = {
             if (textoError) {
                 Icon(
-                    painterResource(R.drawable.outline_error_24),"" , tint = primario)
+                    painterResource(R.drawable.outline_error_24),"" , tint = MaterialTheme.colorScheme.primary)
 
             }else if (esContraseña) {
-                Icon(painterResource(R.drawable.outline_visibility_off_24),"" , tint = primario)
+                Icon(painterResource(R.drawable.outline_visibility_off_24),"" , tint = MaterialTheme.colorScheme.primary)
             }
         },
         supportingText = {
@@ -77,7 +77,7 @@ fun lumTextField(
                     modifier = Modifier
                         .padding(top = 8.dp)
                         .fillMaxWidth(),
-                    color = Color.White,
+                    color = MaterialTheme.colorScheme.onPrimary,
                     fontFamily = FontFamily.SansSerif,
                     textAlign = TextAlign.Start
                 )
