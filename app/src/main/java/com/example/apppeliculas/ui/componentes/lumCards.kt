@@ -38,7 +38,7 @@ fun lumCards(pelicula: Pelicula, backStack: NavBackStack<NavKey>) {
         Row(
             modifier = Modifier
                 .fillMaxSize()
-                .background(Color.White)
+                .background(MaterialTheme.colorScheme.onPrimary)
         ) {
 
             Box(
