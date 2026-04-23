@@ -113,7 +113,14 @@ fun PantalaCrearPelicula(backStack: NavBackStack<NavKey>) {
 
         Button(
             onClick = {
-                backStack.
+                pelicula = Pelicula (titulo,genero,director,puntuacion)
+                appDatos.listaPeliculas.add(pelicula)
+                titulo = ""
+                genero = ""
+                director = ""
+                puntuacion = ""
+                
+
             },
             colors = ButtonColors(
                 containerColor = MaterialTheme.colorScheme.primary,
