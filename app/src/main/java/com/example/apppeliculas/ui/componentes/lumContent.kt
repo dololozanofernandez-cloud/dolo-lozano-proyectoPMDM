@@ -16,7 +16,7 @@ fun lumContent(backStack : NavBackStack<NavKey>) {
     LazyColumn(
         modifier = Modifier
             .fillMaxWidth()
-            .background(Fondo)
+            .background(MaterialTheme.colorScheme.background)
     ) {
         items(datosApp.listaPeliculas) { pelicula ->
             lumCards(pelicula, backStack)
