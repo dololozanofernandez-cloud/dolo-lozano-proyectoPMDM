@@ -54,7 +54,7 @@ fun PantalaCrearPelicula(backStack: NavBackStack<NavKey>) {
         modifier = Modifier
             .fillMaxSize()
             .background(
-                Fondo
+                MaterialTheme.colorScheme.backround
             ),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
@@ -66,7 +66,7 @@ fun PantalaCrearPelicula(backStack: NavBackStack<NavKey>) {
                 fontFamily = FontFamily.SansSerif,
                 fontSize = 35.sp,
                 fontWeight = FontWeight.Bold,
-                color = primario
+                color = MaterialTheme.colorScheme.primary
             )
         }
         Spacer(modifier = Modifier.height(100.dp))
@@ -113,13 +113,13 @@ fun PantalaCrearPelicula(backStack: NavBackStack<NavKey>) {
 
         Button(
             onClick = {
-                backStack
+                backStack.
             },
             colors = ButtonColors(
-                containerColor = primario,
-                contentColor = Color.White,
+                containerColor = MaterialTheme.colorScheme.primary,
+                contentColor = MaterialTheme.colorScheme.onPrimary,
                 disabledContainerColor = Color.Black,
-                disabledContentColor = Color.White
+                disabledContentColor = MaterialTheme.colorScheme.onPrimary,
             ), modifier = Modifier.fillMaxWidth(0.7f), shape = CircleShape
         ) {
             Text(
