@@ -56,7 +56,7 @@ fun PantallaRegistro(backStack: NavBackStack<NavKey>) {
         modifier = Modifier
             .fillMaxSize()
             .background(
-               MaterialTheme.colorScheme.background
+              Fondo
             )
     ) {
         Column(
