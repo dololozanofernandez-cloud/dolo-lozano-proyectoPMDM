@@ -3,7 +3,7 @@ package com.example.apppeliculas.bbdd
 import com.example.apppeliculas.modelo.Pelicula
 
 object datosApp {
-    var listaPeliculas = listOf(
+    var listaPeliculas = mutableStateListOf(
 
         // Clásicos y Nouvelle Vague
         Pelicula(
