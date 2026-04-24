@@ -1,5 +1,7 @@
 package com.example.apppeliculas.ui.componentes
 
+import android.widget.Toast
+import androidx.annotation.ColorInt
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -14,20 +16,29 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableDoubleStateOf
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.navigation3.runtime.NavBackStack
 import androidx.navigation3.runtime.NavKey
+import com.example.apppeliculas.R
+import com.example.apppeliculas.bbdd.datosApp
 import com.example.apppeliculas.modelo.Pelicula
 import com.example.apppeliculas.navegacion.PantallaCrearPeliculaKey
 
 @Composable
 fun lumCards(pelicula: Pelicula, backStack: NavBackStack<NavKey>) {
-    Card(onClick = {backStack.add(PantallaCrearPeliculaKey)},
+    var mostrarDialogo by remember { mutableStateOf(false) }
+    Card(onClick = {backStack.add(PantallaCrearPeliculaKey(pelicula))},
         modifier = Modifier
             .padding(8.dp)
             .fillMaxWidth()
@@ -60,7 +71,7 @@ fun lumCards(pelicula: Pelicula, backStack: NavBackStack<NavKey>) {
             ) {
                 Text(
                     text = pelicula.titulo,
-                    style = MaterialTheme.typography.titleLarge,
+                    color = Color.Black,
                     fontWeight = FontWeight.Bold,
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis
@@ -82,18 +93,50 @@ fun lumCards(pelicula: Pelicula, backStack: NavBackStack<NavKey>) {
                 )
 
             }
-            Box(
+            if (mostrarDialogo) {
+                AlertDialog(
+                    onDismissRequest = { mostrarDialogo = false },
+                    title = { Text(text = "Confirmar eliminación") },
+                    text = { Text(text = "¿Estás seguro de que quieres eliminar esta película?") },
+                    confirmButton = {
+                        TextButton(
+                            onClick = {
+                                datosApp.listaPeliculas.removeIf { it.titulo == pelicula.titulo }
+                                mostrarDialogo = false
+                            }
+                        ) {
+                            Text("Eliminar", color = Color.Red)
+                        }
+                    },
+                    dismissButton = {
+                        TextButton(onClick = { mostrarDialogo = false }) {
+                            Text("Cancelar")
+                        }
+                    }
+                )
+            }
+            Column (
                 modifier = Modifier
                     .weight(0.2f)
                     .fillMaxHeight(),
-                contentAlignment = Alignment.Center
+                verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally
             ) {
 
                 Text(
                     text = "❤  ${pelicula.puntuacion}",
-                    modifier = Modifier.padding(horizontal = 8.dp, vertical = 4.dp),
+                    color = MaterialTheme.colorScheme.primary,
                     fontWeight = FontWeight.Bold
                 )
+                Spacer(modifier = Modifier.height(10.dp))
+                IconButton(onClick = {
+                    mostrarDialogo = true
+                }) { Icon(
+                    painterResource(R.drawable.outline_delete_24),
+                    contentDescription = "Eliminar película",
+                    tint = Color.Black,
+
+
+                    )}
             }
 
 

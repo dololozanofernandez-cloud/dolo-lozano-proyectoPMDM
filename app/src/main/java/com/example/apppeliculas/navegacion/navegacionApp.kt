@@ -6,10 +6,12 @@ import androidx.navigation3.runtime.NavKey
 import androidx.navigation3.runtime.entryProvider
 import androidx.navigation3.runtime.rememberNavBackStack
 import androidx.navigation3.ui.NavDisplay
+import com.example.apppeliculas.modelo.Pelicula
 import com.example.apppeliculas.ui.pantallas.PantalaCrearPelicula
 import com.example.apppeliculas.ui.pantallas.PantallaListaPeliculas
 import com.example.apppeliculas.ui.pantallas.PantallaLogin
 import com.example.apppeliculas.ui.pantallas.PantallaRegistro
+import kotlinx.serialization.Contextual
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.Serializer
 
@@ -23,7 +25,7 @@ data object PantallaRegistroKey : NavKey
 data object PantallaListaPeliculasKey : NavKey
 
 @Serializable
-data object PantallaCrearPeliculaKey : NavKey
+data class PantallaCrearPeliculaKey(val pelicula: Pelicula?= null) : NavKey
 
 @Composable
 fun navegacionApp(modifier: Modifier = Modifier) {
@@ -43,7 +45,7 @@ fun navegacionApp(modifier: Modifier = Modifier) {
                 PantallaListaPeliculas(backStack)
             }
             entry<PantallaCrearPeliculaKey> {
-                PantalaCrearPelicula(backStack)
+                PantalaCrearPelicula(backStack, it.pelicula)
             }
 
         }

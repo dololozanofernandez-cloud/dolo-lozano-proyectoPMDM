@@ -19,7 +19,7 @@ fun PantallaListaPeliculas(backStack : NavBackStack<NavKey>) {
     Scaffold(
         topBar = { lumToolBar("Lista películas") },
         content = { lumContent(backStack)},
-        floatingActionButton = { lumBotonAñadir(PantallaCrearPeliculaKey, backStack) })
+        floatingActionButton = { lumBotonAñadir(PantallaCrearPeliculaKey(null), backStack) })
 
 }
 
