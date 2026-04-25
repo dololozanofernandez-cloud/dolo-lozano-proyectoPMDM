@@ -34,10 +34,6 @@ Diseño: Material Design 3 (con personalización Dark Theme).
 
 *📸 Vista Previa*
 
-![Login](./capturas/Login.png)
+![Login](./capturas/Login.png)  ![Registro](./capturas/Registro.png)
 
-![Registro](./capturas/Registro.png)
-
-![Lista](./capturas/Lista.png)
-
-![Actualizar](./capturas/Actualizar.png)
+![Lista](./capturas/Lista.png)  ![Actualizar](./capturas/Actualizar.png)
