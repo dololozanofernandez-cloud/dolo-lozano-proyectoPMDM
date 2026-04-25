@@ -1,4 +1,4 @@
-#Lumière 🎬
+# Lumière 🎬
 
 Lumière es una aplicación móvil diseñada para cinefilos que desean gestionar su catálogo personal de películas. Con una interfaz minimalista y elegante en tonos oscuros, la aplicación permite llevar un control detallado de tus obras favoritas del séptimo arte.
 
