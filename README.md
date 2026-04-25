@@ -34,6 +34,18 @@ Diseño: Material Design 3 (con personalización Dark Theme).
 
 *📸 Vista Previa*
 
-![Login](./capturas/Login.png)  ![Registro](./capturas/Registro.png)
+## 📸 Vista Previa
 
-![Lista](./capturas/Lista.png)  ![Actualizar](./capturas/Actualizar.png)
+<p align="center">
+  <img src="./capturas/Login.png" width="23%" alt="Pantalla de Login" />
+  <img src="./capturas/Registro.png" width="23%" alt="Pantalla de Registro" />
+</p>
+
+<p align="center">
+  <img src="./capturas/Lista.png" width="23%" alt="Lista de Películas" />
+  <img src="./capturas/Actualizar.png" width="23%" alt="Pantalla de Edición" />
+</p>
+
+<p align="center">
+  <i>Fig. 1: Galería de pantallas principales de Lumière.</i>
+</p>
