@@ -26,11 +26,11 @@ El proyecto utiliza Navegación 3 para gestionar el flujo de pantallas de forma 
 
 ## 🛠️ Stack Tecnológico
 
-Lenguaje/Framework: Kotlin
+**Lenguaje/Framework:** Kotlin
 
-Navegación:  Navegación 3 (Jetpack / Compose)
+**Navegación:** Navegación 3 (Jetpack / Compose)
 
-Diseño: Material Design 3 (con personalización Dark Theme).
+**Diseño:** Material Design 3 (con personalización Dark Theme).
 
 
 
