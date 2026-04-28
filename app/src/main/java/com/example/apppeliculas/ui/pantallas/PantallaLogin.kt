@@ -40,7 +40,7 @@ import androidx.navigation3.runtime.NavKey
 import com.example.apppeliculas.R
 import com.example.apppeliculas.navegacion.PantallaListaPeliculasKey
 import com.example.apppeliculas.navegacion.PantallaRegistroKey
-import com.example.apppeliculas.ui.componentes.lumTextField
+import com.example.apppeliculas.ui.componentes.LumTextField
 import com.example.apppeliculas.ui.theme.Fondo
 import com.example.apppeliculas.ui.theme.primario
 import androidx.core.content.edit
@@ -64,7 +64,7 @@ fun PantallaLogin(backStack: NavBackStack<NavKey>) {
             prefs.edit { remove("usuario") }
         }}
 
-val formularioValido = usuario.isNotEmpty() && contraseña.isNotEmpty() && contraseña==contraseñaRep
+val formularioValido = usuario.isNotEmpty() && contraseña.isNotEmpty()
     Column(
         modifier = Modifier
             .fillMaxSize()
@@ -95,7 +95,7 @@ val formularioValido = usuario.isNotEmpty() && contraseña.isNotEmpty() && contr
             )
             Spacer(modifier = Modifier.height(25.dp))
 
-            lumTextField(
+            LumTextField(
                 value = usuario,
                         onValueChange = {usuario = it},
                 vacio = usuario.isEmpty(),
@@ -111,7 +111,7 @@ val formularioValido = usuario.isNotEmpty() && contraseña.isNotEmpty() && contr
             )
             Spacer(modifier = Modifier.height(15.dp))
 
-            lumTextField(
+            LumTextField(
                 value = contraseña,
                 onValueChange = {contraseña= it},
                 vacio = contraseña.isEmpty(),
@@ -125,24 +125,7 @@ val formularioValido = usuario.isNotEmpty() && contraseña.isNotEmpty() && contr
                 },
                 esContraseña = true
             )
-            Spacer(modifier = Modifier.height(15.dp))
 
-            lumTextField(
-                value = contraseñaRep,
-                onValueChange = {contraseñaRep= it},
-                vacio = contraseñaRep.isEmpty(),
-                etiqueta = "Repita contraseña",
-                textoErrorAbajo = "Contraseñas no iguales",
-                icono = {
-                    Icon(
-                        painterResource(R.drawable.password),
-                        "",
-                        tint =  MaterialTheme.colorScheme.primary,
-                        modifier = Modifier.size(32.dp)
-                    )
-                },
-                esContraseña = true
-            )
             Spacer(modifier = Modifier.height(40.dp))
             Button(
                 onClick = {backStack.clear()

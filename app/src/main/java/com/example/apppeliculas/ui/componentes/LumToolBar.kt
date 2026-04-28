@@ -14,7 +14,7 @@ import androidx.compose.ui.unit.sp
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun lumToolBar(texto : String) {
+fun LumToolBar(texto : String) {
     TopAppBar(modifier = Modifier.fillMaxWidth(),
         title = {
             Text(

@@ -12,14 +12,14 @@ import androidx.navigation3.runtime.NavKey
 import com.example.apppeliculas.bbdd.datosApp
 
 @Composable
-fun lumContent(backStack : NavBackStack<NavKey>) {
+fun LumContent(backStack : NavBackStack<NavKey>) {
     LazyColumn(
         modifier = Modifier
             .fillMaxWidth()
             .background(MaterialTheme.colorScheme.background)
     ) {
         items(datosApp.listaPeliculas) { pelicula ->
-            lumCards(pelicula, backStack)
+            LumCards(pelicula, backStack)
         }
 
     }

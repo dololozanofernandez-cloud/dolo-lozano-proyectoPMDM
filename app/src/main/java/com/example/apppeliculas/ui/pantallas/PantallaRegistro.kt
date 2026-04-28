@@ -39,7 +39,7 @@ import androidx.navigation3.runtime.NavKey
 import com.example.apppeliculas.R
 import com.example.apppeliculas.navegacion.PantallaLoginKey
 import com.example.apppeliculas.navegacion.PantallaRegistroKey
-import com.example.apppeliculas.ui.componentes.lumTextField
+import com.example.apppeliculas.ui.componentes.LumTextField
 import com.example.apppeliculas.ui.theme.Fondo
 import com.example.apppeliculas.ui.theme.primario
 
@@ -78,7 +78,7 @@ fun PantallaRegistro(backStack: NavBackStack<NavKey>) {
             )
             Spacer(modifier = Modifier.height(25.dp))
 
-            lumTextField(
+            LumTextField(
                 value = usuario,
                 onValueChange = { usuario = it },
                 vacio = true,
@@ -94,7 +94,7 @@ fun PantallaRegistro(backStack: NavBackStack<NavKey>) {
             )
             Spacer(modifier = Modifier.height(15.dp))
 
-            lumTextField(
+            LumTextField(
                 value = email,
                 onValueChange = { email = it },
                 vacio = true,
@@ -110,7 +110,7 @@ fun PantallaRegistro(backStack: NavBackStack<NavKey>) {
             )
             Spacer(modifier = Modifier.height(15.dp))
 
-            lumTextField(
+            LumTextField(
                 value = contraseña,
                 onValueChange = { contraseña = it },
                 vacio = true,
@@ -126,7 +126,7 @@ fun PantallaRegistro(backStack: NavBackStack<NavKey>) {
             )
             Spacer(modifier = Modifier.height(15.dp))
 
-            lumTextField(
+            LumTextField(
                 value = contraseñaRep,
                 onValueChange = { contraseñaRep = it },
                 true,

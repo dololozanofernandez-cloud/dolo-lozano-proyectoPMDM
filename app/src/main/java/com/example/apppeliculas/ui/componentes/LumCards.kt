@@ -1,7 +1,5 @@
 package com.example.apppeliculas.ui.componentes
 
-import android.widget.Toast
-import androidx.annotation.ColorInt
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -17,7 +15,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableDoubleStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -36,7 +33,7 @@ import com.example.apppeliculas.modelo.Pelicula
 import com.example.apppeliculas.navegacion.PantallaCrearPeliculaKey
 
 @Composable
-fun lumCards(pelicula: Pelicula, backStack: NavBackStack<NavKey>) {
+fun LumCards(pelicula: Pelicula, backStack: NavBackStack<NavKey>) {
     var mostrarDialogo by remember { mutableStateOf(false) }
     Card(onClick = {backStack.add(PantallaCrearPeliculaKey(pelicula))},
         modifier = Modifier
@@ -95,8 +92,9 @@ fun lumCards(pelicula: Pelicula, backStack: NavBackStack<NavKey>) {
             }
             if (mostrarDialogo) {
                 AlertDialog(
+
                     onDismissRequest = { mostrarDialogo = false },
-                    title = { Text(text = "Confirmar eliminación") },
+                    title = { Text(text = "Confirmar eliminación",color = MaterialTheme.colorScheme.primary )},
                     text = { Text(text = "¿Estás seguro de que quieres eliminar esta película?") },
                     confirmButton = {
                         TextButton(
@@ -105,7 +103,7 @@ fun lumCards(pelicula: Pelicula, backStack: NavBackStack<NavKey>) {
                                 mostrarDialogo = false
                             }
                         ) {
-                            Text("Eliminar", color = Color.Red)
+                            Text("Eliminar", color = MaterialTheme.colorScheme.primary)
                         }
                     },
                     dismissButton = {

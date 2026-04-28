@@ -36,7 +36,7 @@ import androidx.navigation3.runtime.NavKey
 import com.example.apppeliculas.bbdd.datosApp
 import com.example.apppeliculas.modelo.Pelicula
 import com.example.apppeliculas.navegacion.PantallaListaPeliculasKey
-import com.example.apppeliculas.ui.componentes.lumTextField
+import com.example.apppeliculas.ui.componentes.LumTextField
 
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 
@@ -76,7 +76,7 @@ fun PantalaCrearPelicula(backStack: NavBackStack<NavKey>, pelicula: Pelicula?) {
             )
         }
         Spacer(modifier = Modifier.height(100.dp))
-        lumTextField(
+        LumTextField(
             value = titulo,
             onValueChange = {titulo= it},
             vacio = titulo.isEmpty(),
@@ -85,7 +85,7 @@ fun PantalaCrearPelicula(backStack: NavBackStack<NavKey>, pelicula: Pelicula?) {
             esContraseña = false
         )
         Spacer(modifier = Modifier.height(15.dp))
-        lumTextField(
+        LumTextField(
             value = genero,
             onValueChange = {genero= it},
             genero.isEmpty(),
@@ -94,7 +94,7 @@ fun PantalaCrearPelicula(backStack: NavBackStack<NavKey>, pelicula: Pelicula?) {
             esContraseña = false
         )
         Spacer(modifier = Modifier.height(15.dp))
-        lumTextField(
+        LumTextField(
             value = director,
             onValueChange = {director= it},
             director.isEmpty(),
@@ -103,7 +103,7 @@ fun PantalaCrearPelicula(backStack: NavBackStack<NavKey>, pelicula: Pelicula?) {
             esContraseña = false
         )
         Spacer(modifier = Modifier.height(15.dp))
-        lumTextField(
+        LumTextField(
             value = puntuacion,
             onValueChange = {puntuacion= it},
             puntuacion.isEmpty(),

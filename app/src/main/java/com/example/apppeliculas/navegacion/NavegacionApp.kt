@@ -11,9 +11,7 @@ import com.example.apppeliculas.ui.pantallas.PantalaCrearPelicula
 import com.example.apppeliculas.ui.pantallas.PantallaListaPeliculas
 import com.example.apppeliculas.ui.pantallas.PantallaLogin
 import com.example.apppeliculas.ui.pantallas.PantallaRegistro
-import kotlinx.serialization.Contextual
 import kotlinx.serialization.Serializable
-import kotlinx.serialization.Serializer
 
 @Serializable
 data object PantallaLoginKey : NavKey
@@ -28,7 +26,7 @@ data object PantallaListaPeliculasKey : NavKey
 data class PantallaCrearPeliculaKey(val pelicula: Pelicula?= null) : NavKey
 
 @Composable
-fun navegacionApp(modifier: Modifier = Modifier) {
+fun NavegacionApp() {
     val backStack = rememberNavBackStack(
         PantallaLoginKey
     )
