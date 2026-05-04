@@ -36,7 +36,7 @@ El proyecto utiliza Navegación 3 para gestionar el flujo de pantallas de forma 
 
 ##  Vista Previa
 
-  <img src="./capturas/Login.png" width="23%" alt="Pantalla de Login" />
+  <img src="./capturas/Login.png" width="23%" alt="Pantalla de Login" align="center" />
   
   <img src="./capturas/Registro.png" width="23%" alt="Pantalla de Registro" />
   
