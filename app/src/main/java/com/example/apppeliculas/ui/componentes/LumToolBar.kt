@@ -1,5 +1,6 @@
 package com.example.apppeliculas.ui.componentes
 
+import android.app.Activity
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -10,6 +11,7 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
@@ -20,6 +22,7 @@ import com.example.apppeliculas.R
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun LumToolBar(texto: String,backStack: MutableList<NavKey>) {
+    val contexto = LocalContext.current
     TopAppBar(
         modifier = Modifier.fillMaxWidth(),
         title = {
@@ -32,7 +35,9 @@ fun LumToolBar(texto: String,backStack: MutableList<NavKey>) {
             )
         },
         navigationIcon = {
-            IconButton(onClick ={if (backStack.size > 1) backStack.removeAt(backStack.size - 1)}) {
+            IconButton(onClick ={
+                if (backStack.size > 1) backStack.removeAt(backStack.size - 1)else(contexto as? Activity)?.finish()
+            }) {
                 Icon(
                     painterResource(R.drawable.baseline_arrow_back_24),
                     contentDescription = "Atrás"

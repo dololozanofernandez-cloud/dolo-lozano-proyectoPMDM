@@ -1,0 +1,81 @@
+Index: README.md
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+># Lumière \uD83C\uDFAC\r\n\r\nLumière es una aplicación móvil diseñada para cinéfilos que desean gestionar su catálogo personal de películas. Con una interfaz minimalista y elegante en tonos oscuros, la aplicación permite llevar un control detallado de tus obras favoritas del séptimo arte.\r\n\r\n## ✨ Características principales\r\n\r\n**Autenticación de Usuarios:** Pantallas de Login y Registro con validación de formularios (correo, contraseñas coincidentes y campos obligatorios).\r\n\r\n**Catálogo Personalizado:** Visualización de películas con metadatos como género, director y puntuación (Rating).\r\n\r\n**Gestión CRUD:** Operaciones completas para agregar, editar y eliminar registros de la colección.\r\n\r\n**UI Cinema Noir:** Estética basada en alto contraste (rojo sobre negro) para una experiencia inmersiva.\r\n\r\n## \uD83D\uDDFA\uFE0FArquitectura de Navegación\r\n\r\nEl proyecto utiliza Navegación 3 para gestionar el flujo de pantallas de forma declarativa y segura, estructurándose de la siguiente manera:\r\n\r\n**Gráfico de navegación:** Definición centralizada de rutas para evitar acoplamiento entre pantallas.\r\n\r\n**Deep Linking & Argumentos:** Paso de datos seguro (type-safe) entre la lista principal y la pantalla de edición de películas.\r\n\r\n**Gestión de Backstack:** Control preciso del historial para asegurar que el usuario no regrese a las pantallas de inicio de sesión una vez autenticado.\r\n\r\n**Transiciones:** Fluidez en el cambio entre el registro de usuarios y el tablero principal.\r\n\r\n## \uD83D\uDEE0\uFE0F Stack Tecnológico\r\n\r\n**Lenguaje/Framework:** Kotlin\r\n\r\n**Navegación:** Navegación 3 (Jetpack / Compose)\r\n\r\n**Diseño:** Material Design 3 (con personalización Dark Theme).\r\n\r\n\r\n\r\n## \uD83D\uDCF8 Vista Previa\r\n\r\n<p align=\"center\">\r\n  <img src=\"./capturas/Login.png\" width=\"23%\" alt=\"Pantalla de Login\" />\r\n  <img src=\"./capturas/Registro.png\" width=\"23%\" alt=\"Pantalla de Registro\" />\r\n</p>\r\n\r\n<p align=\"center\">\r\n  <img src=\"./capturas/Lista.png\" width=\"23%\" alt=\"Lista de Películas\" />\r\n  <img src=\"./capturas/Actualizar.png\" width=\"23%\" alt=\"Pantalla de Edición\" />\r\n</p>\r\n\r\n<p align=\"center\">\r\n  <i>Fig. 1: Galería de pantallas principales de Lumière.</i>\r\n</p>\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/README.md b/README.md
+--- a/README.md	(revision dadfca4feec531033b60d7478039eb1e24476fe4)
++++ b/README.md	(date 1777995167002)
+@@ -1,51 +1,46 @@
+-# Lumière 🎬
++# Lumière
+ 
+ Lumière es una aplicación móvil diseñada para cinéfilos que desean gestionar su catálogo personal de películas. Con una interfaz minimalista y elegante en tonos oscuros, la aplicación permite llevar un control detallado de tus obras favoritas del séptimo arte.
+ 
+-## ✨ Características principales
++## Características principales
+ 
+-**Autenticación de Usuarios:** Pantallas de Login y Registro con validación de formularios (correo, contraseñas coincidentes y campos obligatorios).
++**-Autenticación de Usuarios:** Pantallas de Login y Registro con validación de formularios (correo, contraseñas coincidentes y campos obligatorios).
+ 
+-**Catálogo Personalizado:** Visualización de películas con metadatos como género, director y puntuación (Rating).
++**-Catálogo Personalizado:** Visualización de películas con metadatos como género, director y puntuación (Rating).
+ 
+-**Gestión CRUD:** Operaciones completas para agregar, editar y eliminar registros de la colección.
++**-Gestión CRUD:** Operaciones completas para agregar, editar y eliminar registros de la colección.
+ 
+-**UI Cinema Noir:** Estética basada en alto contraste (rojo sobre negro) para una experiencia inmersiva.
++**-UI Cinema Noir:** Estética basada en alto contraste (rojo sobre negro) para una experiencia inmersiva.
+ 
+-## 🗺️Arquitectura de Navegación
++## Arquitectura de Navegación
+ 
+ El proyecto utiliza Navegación 3 para gestionar el flujo de pantallas de forma declarativa y segura, estructurándose de la siguiente manera:
+ 
+-**Gráfico de navegación:** Definición centralizada de rutas para evitar acoplamiento entre pantallas.
++**-Gráfico de navegación:** Definición centralizada de rutas para evitar acoplamiento entre pantallas.
+ 
+-**Deep Linking & Argumentos:** Paso de datos seguro (type-safe) entre la lista principal y la pantalla de edición de películas.
++**-Deep Linking & Argumentos:** Paso de datos seguro (type-safe) entre la lista principal y la pantalla de edición de películas.
+ 
+-**Gestión de Backstack:** Control preciso del historial para asegurar que el usuario no regrese a las pantallas de inicio de sesión una vez autenticado.
++**-Gestión de Backstack:** Control preciso del historial para asegurar que el usuario no regrese a las pantallas de inicio de sesión una vez autenticado.
+ 
+-**Transiciones:** Fluidez en el cambio entre el registro de usuarios y el tablero principal.
++**-Transiciones:** Fluidez en el cambio entre el registro de usuarios y el tablero principal.
+ 
+-## 🛠️ Stack Tecnológico
++## Stack Tecnológico
+ 
+-**Lenguaje/Framework:** Kotlin
++**-Lenguaje/Framework:** Kotlin
+ 
+-**Navegación:** Navegación 3 (Jetpack / Compose)
++**-Navegación:** Navegación 3 (Jetpack / Compose)
+ 
+-**Diseño:** Material Design 3 (con personalización Dark Theme).
++**-Diseño:** Material Design 3 (con personalización Dark Theme).
+ 
+ 
+ 
+-## 📸 Vista Previa
++##  Vista Previa
+ 
+-<p align="center">
+   <img src="./capturas/Login.png" width="23%" alt="Pantalla de Login" />
++  
+   <img src="./capturas/Registro.png" width="23%" alt="Pantalla de Registro" />
+-</p>
+-
+-<p align="center">
++  
+   <img src="./capturas/Lista.png" width="23%" alt="Lista de Películas" />
++  
+   <img src="./capturas/Actualizar.png" width="23%" alt="Pantalla de Edición" />
+-</p>
+ 
+-<p align="center">
+-  <i>Fig. 1: Galería de pantallas principales de Lumière.</i>
+-</p>
