@@ -1,3 +1,28 @@
 <resources>
     <string name="app_name">AppPeliculas</string>
+    <string name="añadir">Añadir</string>
+    <string name="confirmar_eliminacion">Confirmar eliminación</string>
+    <string name="confirmar_eliminacion2">¿Estás seguro de que quieres eliminar esta película?</string>
+    <string name="eliminar">Eliminar</string>
+    <string name="cancelar">Cancelar</string>
+    <string name="eliminar_película">Eliminar película</string>
+    <string name="añadir_pelicula">Añadir película</string>
+    <string name="editar_pelicula">Editar película</string>
+    <string name="guardar">Guardar</string>
+    <string name="titulo">Título</string>
+    <string name="solicitar_titulo">Debes introducir un título</string>
+    <string name="genero">Género</string>
+    <string name="solicitar_genero">Debes introducir un género</string>
+    <string name="puntuacion">Puntuación</string>
+    <string name="solicitar_puntuacion">Debes introducir unha puntuación</string>
+    <string name="director">Director</string>
+    <string name="solicitar_director">Debes introducir un director</string>
+    <string name="lista_peliculas">Lista películas</string>
+    <string name="registrate">Regístrate aquí</string>
+    <string name="nuevo_lumière">¿Nuevo en Lumière?</string>
+    <string name="contraseña">Contraseña</string>
+    <string name="usuario">Usuario</string>
+    <string name="logo">LOGO</string>
+    <string name="usuario_">usuario</string>
+    <string name="añadir_pelicula_">Añadir película</string>
 </resources>

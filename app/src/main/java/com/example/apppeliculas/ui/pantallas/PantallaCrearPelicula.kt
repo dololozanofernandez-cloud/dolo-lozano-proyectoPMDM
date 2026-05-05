@@ -1,9 +1,4 @@
-package com.example.apppeliculas.ui.pantallas
-
-import android.annotation.SuppressLint
 import android.widget.Toast
-import androidx.compose.foundation.LocalIndication
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -11,146 +6,154 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonColors
-import androidx.compose.material3.ButtonDefaults
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.CenterAlignedTopAppBar
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.neverEqualPolicy
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation3.runtime.NavBackStack
 import androidx.navigation3.runtime.NavKey
+import com.example.apppeliculas.R
 import com.example.apppeliculas.bbdd.datosApp
 import com.example.apppeliculas.modelo.Pelicula
-import com.example.apppeliculas.navegacion.PantallaListaPeliculasKey
 import com.example.apppeliculas.ui.componentes.LumTextField
+import com.example.apppeliculas.ui.componentes.LumToolBar
 
-@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun PantalaCrearPelicula(backStack: NavBackStack<NavKey>, pelicula: Pelicula?) {
+fun PantallaCrearPelicula(backStack: MutableList<NavKey>, pelicula: Pelicula?) {
     val context = LocalContext.current
 
-    var titulo by rememberSaveable(pelicula) { mutableStateOf(pelicula?.titulo ?:  "") }
-    var genero by rememberSaveable(pelicula) { mutableStateOf(pelicula?.genero ?:  "") }
-    var director by rememberSaveable(pelicula) { mutableStateOf(pelicula?.director ?:  "") }
-    var puntuacion by rememberSaveable(pelicula) { mutableStateOf(pelicula?.puntuacion ?:  "") }
+    var titulo by rememberSaveable(pelicula) { mutableStateOf(pelicula?.titulo ?: "") }
+    var genero by rememberSaveable(pelicula) { mutableStateOf(pelicula?.genero ?: "") }
+    var director by rememberSaveable(pelicula) { mutableStateOf(pelicula?.director ?: "") }
+    var puntuacion by rememberSaveable(pelicula) { mutableStateOf(pelicula?.puntuacion ?: "") }
 
-    var formularioValido = titulo.isNotEmpty() && genero.isNotEmpty() && director.isNotEmpty() && puntuacion.isNotEmpty()
+    val formularioValido = titulo.isNotEmpty() && genero.isNotEmpty() &&
+            director.isNotEmpty() && puntuacion.isNotEmpty()
 
+    Scaffold(
 
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(
-                MaterialTheme.colorScheme.background
-            ),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
-    ) {
-        Box(
-        ) {
-            Text(
-                text = if(pelicula == null){
-                    "Añadir película"
-                } else {
-                    "Editar película"
+        containerColor = MaterialTheme.colorScheme.background,
+        topBar = {
+            LumToolBar(
+                texto = stringResource(R.string.añadir_pelicula_),backStack = backStack,
+                )
+        },
+        floatingActionButton = {
+            FloatingActionButton(
+                onClick = {
+                    if (formularioValido) {
+                        val idNueva = pelicula?.id ?: (datosApp.listaPeliculas.size + 1).toString()
+                        val nuevaPelicula = Pelicula(id = idNueva, titulo, genero, director, puntuacion)
+                        val indiceExistente = datosApp.listaPeliculas.indexOfFirst { it.id == idNueva }
+
+                        if (indiceExistente != -1) {
+                            datosApp.listaPeliculas[indiceExistente] = nuevaPelicula
+                        } else {
+                            datosApp.listaPeliculas.add(nuevaPelicula)
+                        }
+
+                        Toast.makeText(context, "¡Película guardada!", Toast.LENGTH_SHORT).show()
+                        if (backStack.size > 1) backStack.removeAt(backStack.size - 1)
+                    } else {
+                        Toast.makeText(context, "Rellena todos los campos", Toast.LENGTH_SHORT).show()
+                    }
                 },
-                fontFamily = FontFamily.SansSerif,
-                fontSize = 35.sp,
-                fontWeight = FontWeight.Bold,
-                color = MaterialTheme.colorScheme.primary
-            )
-        }
-        Spacer(modifier = Modifier.height(100.dp))
-        LumTextField(
-            value = titulo,
-            onValueChange = {titulo= it},
-            vacio = titulo.isEmpty(),
-            etiqueta = "Título",
-            textoErrorAbajo = "Debes introducir un título",
-            esContraseña = false
-        )
-        Spacer(modifier = Modifier.height(15.dp))
-        LumTextField(
-            value = genero,
-            onValueChange = {genero= it},
-            genero.isEmpty(),
-            "Género",
-            "Debes introducir un género",
-            esContraseña = false
-        )
-        Spacer(modifier = Modifier.height(15.dp))
-        LumTextField(
-            value = director,
-            onValueChange = {director= it},
-            director.isEmpty(),
-            "Director",
-            "Debes introducir un director",
-            esContraseña = false
-        )
-        Spacer(modifier = Modifier.height(15.dp))
-        LumTextField(
-            value = puntuacion,
-            onValueChange = {puntuacion= it},
-            puntuacion.isEmpty(),
-            "Puntuación",
-            "Debes introducir unha puntuación",
-            esContraseña = false
-        )
-        Spacer(modifier = Modifier.height(45.dp))
 
-        Button(
-            onClick = {
-                val nuevaPelicula = Pelicula(titulo, genero, director, puntuacion)
-
-                val indiceExistente = datosApp.listaPeliculas.indexOfFirst { it.titulo == nuevaPelicula.titulo }
-
-                if (indiceExistente != -1) {
-                    datosApp.listaPeliculas[indiceExistente] = nuevaPelicula
-                } else {
-                    datosApp.listaPeliculas.add(nuevaPelicula)
-                }
-                Toast.makeText(context, "¡Película guardada!", Toast.LENGTH_SHORT).show()
-
-                titulo = ""
-                genero = ""
-                director = ""
-                puntuacion = ""
-
-                if(backStack.size > 1){
-                    backStack.removeAt(backStack.size-1)
-                }
-
-            },
-            colors = ButtonDefaults.buttonColors(
-                containerColor = MaterialTheme.colorScheme.primary,
+                containerColor = if (formularioValido) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.background,
                 contentColor = MaterialTheme.colorScheme.onPrimary,
-                disabledContainerColor = Color.Black,
-                disabledContentColor = MaterialTheme.colorScheme.onPrimary
-            ), modifier = Modifier.fillMaxWidth(0.7f), shape = CircleShape,
-            enabled = formularioValido
+                shape = RoundedCornerShape(percent = 35),
+                modifier = Modifier
+                    .padding(bottom = 16.dp, end = 8.dp)
+                    .size(65.dp)
+            ) {
+                Icon(
+                    painter = painterResource(R.drawable.outline_add_24),
+                    contentDescription = stringResource(R.string.guardar),
+                    modifier = Modifier.size(30.dp)
+                )
+            }
+        }
+    ) { innerPadding ->
+
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(innerPadding),
+            contentAlignment = Alignment.Center
         ) {
-            Text(
-                "Añadir",
-                fontSize = 18.sp,
-                fontFamily = FontFamily.SansSerif
+            Column(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 32.dp)
+                    .verticalScroll(rememberScrollState()),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.spacedBy(20.dp) ){
 
-            )
 
+                LumTextField(
+                    value = titulo,
+                    onValueChange = { titulo = it },
+                    vacio = titulo.isEmpty(),
+                    etiqueta = stringResource(R.string.titulo),
+                    textoErrorAbajo = stringResource(R.string.solicitar_titulo),
+                    esContraseña = false
+                )
+
+                LumTextField(
+                    value = genero,
+                    onValueChange = { genero = it },
+                    vacio = genero.isEmpty(),
+                    etiqueta = stringResource(R.string.genero),
+                    textoErrorAbajo = stringResource(R.string.solicitar_genero),
+                    esContraseña = false
+                )
+
+                LumTextField(
+                    value = director,
+                    onValueChange = { director = it },
+                    vacio = director.isEmpty(),
+                    etiqueta = stringResource(R.string.director),
+                    textoErrorAbajo = stringResource(R.string.solicitar_director),
+                    esContraseña = false
+                )
+
+                LumTextField(
+                    value = puntuacion,
+                    onValueChange = { puntuacion = it },
+                    vacio = puntuacion.isEmpty(),
+                    etiqueta = stringResource(R.string.puntuacion),
+                    textoErrorAbajo = stringResource(R.string.solicitar_puntuacion),
+                    esContraseña = false
+                )
+
+
+                Spacer(modifier = Modifier.height(80.dp))
+            }
         }
     }
 }

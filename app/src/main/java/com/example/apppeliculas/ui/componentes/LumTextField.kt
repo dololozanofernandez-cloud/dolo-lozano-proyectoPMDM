@@ -9,9 +9,11 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.input.PasswordVisualTransformation
@@ -21,10 +23,12 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.apppeliculas.R
 
+
+
 @Composable
 fun LumTextField(
     value: String,
-    onValueChange: (String)-> Unit,
+    onValueChange: (String) -> Unit,
     vacio: Boolean = false,
     etiqueta: String,
     textoErrorAbajo: String,
@@ -32,62 +36,69 @@ fun LumTextField(
     esContraseña: Boolean
 ) {
 
-    var textoError = false
-    if (vacio) {
-        textoError = value.isEmpty()
-    }
-    OutlinedTextField(
-        value = value,
-        onValueChange =
-            onValueChange,
-        label = {
-            Text(text = etiqueta, color = Color.Gray)
-        },
-        colors = TextFieldDefaults.colors(
-            unfocusedContainerColor = MaterialTheme.colorScheme.onPrimary,
-            focusedContainerColor = MaterialTheme.colorScheme.onPrimary,
-            unfocusedIndicatorColor =MaterialTheme.colorScheme.onPrimary,
-            focusedIndicatorColor = MaterialTheme.colorScheme.onPrimary,
+    var seHaTocado by remember { mutableStateOf(false) }
 
-            errorContainerColor = MaterialTheme.colorScheme.onPrimary,
-            errorIndicatorColor = MaterialTheme.colorScheme.primary,
-            errorLabelColor = MaterialTheme.colorScheme.primary,
-            focusedTextColor = Color.Black,
-            unfocusedTextColor = Color.Black
-        ),
-        shape = CircleShape,
-        isError = textoError,
-        trailingIcon = {
-            if (textoError) {
-                Icon(
-                    painterResource(R.drawable.outline_error_24),"" , tint = MaterialTheme.colorScheme.primary)
 
-            }else if (esContraseña) {
-                Icon(painterResource(R.drawable.outline_visibility_off_24),"" , tint = MaterialTheme.colorScheme.primary)
-            }
-        },
-        supportingText = {
-            if (textoError) {
-                Text(
-                    text = textoErrorAbajo,
-                    fontSize = 14.sp,
-                    modifier = Modifier
-                        .padding(top = 8.dp)
-                        .fillMaxWidth(),
-                    color = MaterialTheme.colorScheme.onPrimary,
-                    fontFamily = FontFamily.SansSerif,
-                    textAlign = TextAlign.Start
-                )
-            }
-        },
-        leadingIcon = icono,
-        visualTransformation =
-            if (esContraseña) {
+    val tieneError = (vacio && seHaTocado && value.isEmpty()).apply {
+
+        OutlinedTextField(
+            value = value,
+            onValueChange = {
+                onValueChange(it)
+                seHaTocado = true
+            },
+            label = {
+                Text(text = etiqueta, color = MaterialTheme.colorScheme.surface)
+            },
+            colors = TextFieldDefaults.colors(
+                unfocusedContainerColor = MaterialTheme.colorScheme.onPrimary,
+                focusedContainerColor = MaterialTheme.colorScheme.onPrimary,
+                unfocusedIndicatorColor = MaterialTheme.colorScheme.onPrimary,
+                focusedIndicatorColor = MaterialTheme.colorScheme.onPrimary,
+
+                errorContainerColor = MaterialTheme.colorScheme.onPrimary,
+                errorIndicatorColor = MaterialTheme.colorScheme.primary,
+                errorLabelColor = MaterialTheme.colorScheme.primary,
+                focusedTextColor = MaterialTheme.colorScheme.background,
+                unfocusedTextColor = MaterialTheme.colorScheme.background
+            ),
+            shape = CircleShape,
+            isError = this,
+            trailingIcon = {
+                if (this) {
+                    Icon(
+                        painter = painterResource(R.drawable.outline_error_24),
+                        contentDescription = "Error",
+                        tint = MaterialTheme.colorScheme.primary
+                    )
+                } else if (esContraseña) {
+                    Icon(
+                        painter = painterResource(R.drawable.outline_visibility_off_24),
+                        contentDescription = "Ver contraseña",
+                        tint = MaterialTheme.colorScheme.primary
+                    )
+                }
+            },
+            supportingText = {
+                if (this) {
+                    Text(
+                        text = textoErrorAbajo,
+                        fontSize = 14.sp,
+                        modifier = Modifier
+                            .padding(top = 8.dp)
+                            .fillMaxWidth(),
+                        color = MaterialTheme.colorScheme.onPrimary,
+                        fontFamily = FontFamily.SansSerif,
+                        textAlign = TextAlign.Start
+                    )
+                }
+            },
+            leadingIcon = icono,
+            visualTransformation = if (esContraseña) {
                 PasswordVisualTransformation('\u2022')
             } else {
                 VisualTransformation.None
-
             }
-
-    )
+        )
     }
+}

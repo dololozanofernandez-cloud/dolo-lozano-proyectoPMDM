@@ -13,7 +13,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -30,9 +29,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewFontScale
+import androidx.compose.ui.tooling.preview.PreviewLightDark
+import androidx.compose.ui.tooling.preview.PreviewScreenSizes
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation3.runtime.NavBackStack
@@ -41,8 +44,6 @@ import com.example.apppeliculas.R
 import com.example.apppeliculas.navegacion.PantallaListaPeliculasKey
 import com.example.apppeliculas.navegacion.PantallaRegistroKey
 import com.example.apppeliculas.ui.componentes.LumTextField
-import com.example.apppeliculas.ui.theme.Fondo
-import com.example.apppeliculas.ui.theme.primario
 import androidx.core.content.edit
 
 
@@ -61,7 +62,7 @@ fun PantallaLogin(backStack: NavBackStack<NavKey>) {
         val usuarioGuardado = prefs.getString("usuario", "") ?: ""
         if (usuarioGuardado.isNotEmpty()) {
             usuario = usuarioGuardado
-            prefs.edit { remove("usuario") }
+            prefs.edit { val remove = remove("usuario") }
         }}
 
 val formularioValido = usuario.isNotEmpty() && contraseña.isNotEmpty()
@@ -81,7 +82,7 @@ val formularioValido = usuario.isNotEmpty() && contraseña.isNotEmpty()
             Spacer(modifier = Modifier.height(160.dp))
             Icon(
                 painterResource(R.drawable.cintavideo),
-                "LOGO",
+                stringResource(R.string.logo),
                 tint = MaterialTheme.colorScheme.primary,
                 modifier = Modifier.size(140.dp)
             )
@@ -99,7 +100,7 @@ val formularioValido = usuario.isNotEmpty() && contraseña.isNotEmpty()
                 value = usuario,
                         onValueChange = {usuario = it},
                 vacio = usuario.isEmpty(),
-                etiqueta = "Usuario",
+                etiqueta = stringResource(R.string.usuario),
                 textoErrorAbajo = "Debes introducir un usuario",
                 icono  = {
                     Icon(
@@ -115,7 +116,7 @@ val formularioValido = usuario.isNotEmpty() && contraseña.isNotEmpty()
                 value = contraseña,
                 onValueChange = {contraseña= it},
                 vacio = contraseña.isEmpty(),
-                etiqueta = "Contraseña",
+                etiqueta = stringResource(R.string.contraseña),
                 textoErrorAbajo = "",
                 icono = {
                     Icon(
@@ -133,7 +134,7 @@ val formularioValido = usuario.isNotEmpty() && contraseña.isNotEmpty()
                 colors = ButtonDefaults.buttonColors(
                     containerColor = MaterialTheme.colorScheme.primary,
                     contentColor = MaterialTheme.colorScheme.onPrimary,
-                    disabledContainerColor = Color.Black,
+                    disabledContainerColor = MaterialTheme.colorScheme.background,
                     disabledContentColor = MaterialTheme.colorScheme.onPrimary
                 ), modifier = Modifier.fillMaxWidth(0.7f), shape = CircleShape,
                 enabled = formularioValido
@@ -155,7 +156,7 @@ val formularioValido = usuario.isNotEmpty() && contraseña.isNotEmpty()
             verticalAlignment = Alignment.CenterVertically
         ) {
             Text(
-                "¿Nuevo en Lumière?",
+                stringResource(R.string.nuevo_lumière),
                 fontSize = 14.sp,
                 fontFamily = FontFamily.SansSerif,
                 color = MaterialTheme.colorScheme.onPrimary
@@ -166,12 +167,12 @@ val formularioValido = usuario.isNotEmpty() && contraseña.isNotEmpty()
                 colors = ButtonDefaults.buttonColors(
                     containerColor = Color.Transparent,
                     contentColor = MaterialTheme.colorScheme.primary,
-                    disabledContainerColor = Color.Black,
+                    disabledContainerColor = MaterialTheme.colorScheme.background,
                     disabledContentColor = MaterialTheme.colorScheme.onPrimary
                 )
             ) {
                 Text(
-                    "Regístrate aquí",
+                    stringResource(R.string.registrate),
                     fontSize = 14.sp,
                     fontFamily = FontFamily.SansSerif,
                     fontWeight = FontWeight.Bold

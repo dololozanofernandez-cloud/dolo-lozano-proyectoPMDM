@@ -20,8 +20,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -53,7 +53,7 @@ fun LumCards(pelicula: Pelicula, backStack: NavBackStack<NavKey>) {
                 modifier = Modifier
                     .weight(0.3f)
                     .fillMaxHeight()
-                    .background(Color.LightGray)
+                    .background(MaterialTheme.colorScheme.surface)
             ) {
 
                 Text("🎬", modifier = Modifier.align(Alignment.Center))
@@ -68,7 +68,7 @@ fun LumCards(pelicula: Pelicula, backStack: NavBackStack<NavKey>) {
             ) {
                 Text(
                     text = pelicula.titulo,
-                    color = Color.Black,
+                    color = MaterialTheme.colorScheme.background,
                     fontWeight = FontWeight.Bold,
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis
@@ -79,14 +79,14 @@ fun LumCards(pelicula: Pelicula, backStack: NavBackStack<NavKey>) {
                 Text(
                     text = pelicula.genero,
                     style = MaterialTheme.typography.bodyMedium,
-                    color = Color.Gray
+                    color = MaterialTheme.colorScheme.surface
                 )
                 Spacer(modifier = Modifier.height(4.dp))
 
                 Text(
                     text = pelicula.director,
                     style = MaterialTheme.typography.bodyMedium,
-                    color = Color.Gray
+                    color = MaterialTheme.colorScheme.surface
                 )
 
             }
@@ -94,8 +94,8 @@ fun LumCards(pelicula: Pelicula, backStack: NavBackStack<NavKey>) {
                 AlertDialog(
 
                     onDismissRequest = { mostrarDialogo = false },
-                    title = { Text(text = "Confirmar eliminación",color = MaterialTheme.colorScheme.primary )},
-                    text = { Text(text = "¿Estás seguro de que quieres eliminar esta película?") },
+                    title = { Text(text = stringResource(R.string.confirmar_eliminacion),color = MaterialTheme.colorScheme.primary )},
+                    text = { Text(text = stringResource(R.string.confirmar_eliminacion2)) },
                     confirmButton = {
                         TextButton(
                             onClick = {
@@ -103,12 +103,12 @@ fun LumCards(pelicula: Pelicula, backStack: NavBackStack<NavKey>) {
                                 mostrarDialogo = false
                             }
                         ) {
-                            Text("Eliminar", color = MaterialTheme.colorScheme.primary)
+                            Text(stringResource(R.string.eliminar), color = MaterialTheme.colorScheme.primary)
                         }
                     },
                     dismissButton = {
                         TextButton(onClick = { mostrarDialogo = false }) {
-                            Text("Cancelar")
+                            Text(stringResource(R.string.cancelar))
                         }
                     }
                 )
@@ -130,9 +130,8 @@ fun LumCards(pelicula: Pelicula, backStack: NavBackStack<NavKey>) {
                     mostrarDialogo = true
                 }) { Icon(
                     painterResource(R.drawable.outline_delete_24),
-                    contentDescription = "Eliminar película",
-                    tint = Color.Black,
-
+                    contentDescription = stringResource(R.string.eliminar_película),
+                    tint = MaterialTheme.colorScheme.background
 
                     )}
             }

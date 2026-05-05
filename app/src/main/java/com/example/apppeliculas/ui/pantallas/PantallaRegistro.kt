@@ -152,7 +152,7 @@ fun PantallaRegistro(backStack: NavBackStack<NavKey>) {
                 colors = ButtonDefaults.buttonColors(
                     containerColor = MaterialTheme.colorScheme.primary,
                     contentColor = MaterialTheme.colorScheme.onPrimary,
-                    disabledContainerColor = Color.Black,
+                    disabledContainerColor = MaterialTheme.colorScheme.background,
                     disabledContentColor = MaterialTheme.colorScheme.onPrimary
                 ), modifier = Modifier.fillMaxWidth(0.7f), shape = CircleShape,
                 enabled = formularioValido
@@ -185,7 +185,7 @@ fun PantallaRegistro(backStack: NavBackStack<NavKey>) {
                 colors = ButtonDefaults.buttonColors(
                     containerColor = Color.Transparent,
                     contentColor = MaterialTheme.colorScheme.primary,
-                    disabledContainerColor = Color.Black,
+                    disabledContainerColor = MaterialTheme.colorScheme.background,
                     disabledContentColor = MaterialTheme.colorScheme.onPrimary
                 )
             ) {

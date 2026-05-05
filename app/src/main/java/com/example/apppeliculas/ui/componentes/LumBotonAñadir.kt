@@ -1,16 +1,20 @@
 package com.example.apppeliculas.ui.componentes
 
-import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.font.FontFamily
-import androidx.compose.ui.unit.sp
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
 import androidx.navigation3.runtime.NavBackStack
 import androidx.navigation3.runtime.NavKey
+import com.example.apppeliculas.R
 
 
 @Composable
@@ -21,16 +25,14 @@ fun LumBotonAñadir(navKey: NavKey, backStack : NavBackStack<NavKey>) {
         colors = ButtonDefaults.buttonColors(
             containerColor = MaterialTheme.colorScheme.primary,
             contentColor = MaterialTheme.colorScheme.onPrimary,
-            disabledContainerColor = Color.Black,
+            disabledContainerColor = MaterialTheme.colorScheme.background,
             disabledContentColor = MaterialTheme.colorScheme.onPrimary
-        ), shape = CircleShape
+        ), shape = RoundedCornerShape(20.dp), modifier = Modifier
+            .padding(16.dp)
+            .size(80.dp)
     ) {
-        Text(
-            "+ Añadir pelicula",
-            fontSize = 15.sp,
-            fontFamily = FontFamily.SansSerif
-
-        )
+        Icon(painterResource(R.drawable.outline_add_24),
+            stringResource(R.string.añadir), modifier = Modifier.size(28.dp))
     }
 
 

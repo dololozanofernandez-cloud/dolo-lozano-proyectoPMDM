@@ -4,19 +4,7 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
 import com.example.apppeliculas.navegacion.NavegacionApp
-import com.example.apppeliculas.ui.pantallas.PantalaCrearPelicula
-import com.example.apppeliculas.ui.pantallas.PantallaListaPeliculas
-import com.example.apppeliculas.ui.pantallas.PantallaLogin
-import com.example.apppeliculas.ui.pantallas.PantallaRegistro
 import com.example.apppeliculas.ui.theme.AppPeliculasTheme
 
 class MainActivity : ComponentActivity() {
