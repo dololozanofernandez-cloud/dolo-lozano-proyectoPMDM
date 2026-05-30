@@ -88,7 +88,7 @@ fun PantallaCrearPelicula(backStack: MutableList<NavKey>, idPelicula: String) {
             ) {
                 LumTextField(
                     value = titulo,
-                    onValueChange = { if (!esDetalle) titulo = it },
+                    onValueChange = { titulo = it },
                     vacio = titulo.isEmpty(),
                     etiqueta = stringResource(R.string.titulo),
                     textoErrorAbajo = stringResource(R.string.solicitar_titulo),
@@ -97,7 +97,7 @@ fun PantallaCrearPelicula(backStack: MutableList<NavKey>, idPelicula: String) {
 
                 LumTextField(
                     value = genero,
-                    onValueChange = { if (!esDetalle) genero = it },
+                    onValueChange = {  genero = it },
                     vacio = genero.isEmpty(),
                     etiqueta = stringResource(R.string.genero),
                     textoErrorAbajo = stringResource(R.string.solicitar_genero),
@@ -106,7 +106,7 @@ fun PantallaCrearPelicula(backStack: MutableList<NavKey>, idPelicula: String) {
 
                 LumTextField(
                     value = director,
-                    onValueChange = { if (!esDetalle) director = it },
+                    onValueChange = {  director = it },
                     vacio = director.isEmpty(),
                     etiqueta = stringResource(R.string.director),
                     textoErrorAbajo = stringResource(R.string.solicitar_director),
@@ -115,7 +115,7 @@ fun PantallaCrearPelicula(backStack: MutableList<NavKey>, idPelicula: String) {
 
                 LumTextField(
                     value = puntuacionStr,
-                    onValueChange = { if (!esDetalle) puntuacionStr = it },
+                    onValueChange = {puntuacionStr = it },
                     vacio = puntuacionStr.isEmpty(),
                     etiqueta = stringResource(R.string.puntuacion),
                     textoErrorAbajo = stringResource(R.string.solicitar_puntuacion),
@@ -129,8 +129,9 @@ fun PantallaCrearPelicula(backStack: MutableList<NavKey>, idPelicula: String) {
                         if (formularioValido) {
                             val puntuacionDouble = puntuacionStr.toDoubleOrNull() ?: 0.0
                             val tokenGuardado = prefs.getString("token", "") ?: ""
+
                             val peliculaEditada = Pelicula(
-                                id = idPelicula.ifEmpty { null },
+                                id = if (idPelicula.isEmpty()) null else idPelicula,
                                 titulo = titulo,
                                 genero = genero,
                                 director = director,
@@ -140,20 +141,29 @@ fun PantallaCrearPelicula(backStack: MutableList<NavKey>, idPelicula: String) {
                             coroutineScope.launch {
                                 val resultadoExitoso = try {
                                     withContext(Dispatchers.IO) {
-                                        InstanciaRetrofit.apiPeliculas.insertar(
-                                            "Bearer $tokenGuardado",
-                                            peliculaEditada
-                                        )
+
+                                        if (esDetalle) {
+                                            InstanciaRetrofit.apiPeliculas.actualizar(
+                                                "Bearer $tokenGuardado",
+                                                idPelicula,
+                                                peliculaEditada
+                                            )
+                                        } else {
+                                            InstanciaRetrofit.apiPeliculas.insertar(
+                                                "Bearer $tokenGuardado",
+                                                peliculaEditada
+                                            )
+                                        }
                                     }
                                     true
                                 } catch (e: Exception) {
-                                    Toast.makeText(context, "Error al guardar en el servidor: ${e.localizedMessage}", Toast.LENGTH_LONG).show()
+                                    Toast.makeText(context, "Error en el servidor: ${e.localizedMessage}", Toast.LENGTH_LONG).show()
                                     false
                                 }
 
-
                                 if (resultadoExitoso) {
-                                    Toast.makeText(context, "¡Película actualizada en el servidor!", Toast.LENGTH_SHORT).show()
+                                    val mensaje = if (esDetalle) "¡Película modificada!" else "¡Película creada!"
+                                    Toast.makeText(context, mensaje, Toast.LENGTH_SHORT).show()
                                     if (backStack.size > 1) {
                                         backStack.removeAt(backStack.size - 1)
                                     }
@@ -172,10 +182,9 @@ fun PantallaCrearPelicula(backStack: MutableList<NavKey>, idPelicula: String) {
                     enabled = formularioValido
                 ) {
                     Text(
-                        "Crear",
+                        text = if (esDetalle) "Modificar" else "Crear",
                         fontSize = 18.sp,
                         fontFamily = FontFamily.SansSerif
-
                     )
 
                 }

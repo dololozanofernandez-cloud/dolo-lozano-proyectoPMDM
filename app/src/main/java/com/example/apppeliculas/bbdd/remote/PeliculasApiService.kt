@@ -6,6 +6,7 @@ import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.POST
+import retrofit2.http.PUT
 import retrofit2.http.Path
 
 interface PeliculasApiService {
@@ -28,4 +29,11 @@ interface PeliculasApiService {
         @Header("Authorization") token: String,
         @Path("id") id: String
     ): retrofit2.Response<Unit>
+
+    @PUT("movies/{id}")
+    suspend fun actualizar(
+        @Header("Authorization") token: String,
+        @Path("id") id: String,
+        @Body pelicula: Pelicula
+    ): Pelicula
 }
