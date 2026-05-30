@@ -1,6 +1,7 @@
 package com.example.apppeliculas.ui.pantallas
 
 import android.content.Context
+import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -10,6 +11,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Button
@@ -22,6 +24,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -45,6 +48,9 @@ import com.example.apppeliculas.navegacion.PantallaListaPeliculasKey
 import com.example.apppeliculas.navegacion.PantallaRegistroKey
 import com.example.apppeliculas.ui.componentes.LumTextField
 import androidx.core.content.edit
+import com.example.apppeliculas.bbdd.remote.InstanciaRetrofit
+import com.example.apppeliculas.modelo.Usuario
+import kotlinx.coroutines.launch
 
 
 @Composable
@@ -55,23 +61,28 @@ fun PantallaLogin(backStack: NavBackStack<NavKey>) {
 
     val usuarioGuardado = prefs.getString("usuario", "") ?: ""
     var usuario by rememberSaveable() { mutableStateOf("") }
-    var contraseña by rememberSaveable() {mutableStateOf("") }
-    var contraseñaRep by rememberSaveable() {mutableStateOf("") }
+    var contraseña by rememberSaveable() { mutableStateOf("") }
+    var errorMensaje by rememberSaveable() { mutableStateOf("") }
+
+    val coroutineScope = rememberCoroutineScope()
 
     LaunchedEffect(Unit) {
         val usuarioGuardado = prefs.getString("usuario", "") ?: ""
         if (usuarioGuardado.isNotEmpty()) {
             usuario = usuarioGuardado
             prefs.edit { val remove = remove("usuario") }
-        }}
+        }
+    }
 
-val formularioValido = usuario.isNotEmpty() && contraseña.isNotEmpty()
+
+    val formularioValido = usuario.isNotEmpty() && contraseña.isNotEmpty()
     Column(
         modifier = Modifier
             .fillMaxSize()
             .background(
                 MaterialTheme.colorScheme.background
             )
+            .padding(16.dp)
     ) {
         Column(
             modifier = Modifier
@@ -79,7 +90,7 @@ val formularioValido = usuario.isNotEmpty() && contraseña.isNotEmpty()
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            Spacer(modifier = Modifier.height(160.dp))
+            Spacer(modifier = Modifier.height(100.dp))
             Icon(
                 painterResource(R.drawable.cintavideo),
                 stringResource(R.string.logo),
@@ -92,19 +103,21 @@ val formularioValido = usuario.isNotEmpty() && contraseña.isNotEmpty()
                 fontSize = 70.sp,
                 fontWeight = FontWeight.Bold,
                 fontFamily = FontFamily.SansSerif,
-                color =  MaterialTheme.colorScheme.primary
+                color = MaterialTheme.colorScheme.primary
             )
             Spacer(modifier = Modifier.height(25.dp))
 
             LumTextField(
                 value = usuario,
-                        onValueChange = {usuario = it},
+                onValueChange = { usuario = it },
                 vacio = usuario.isEmpty(),
                 etiqueta = stringResource(R.string.usuario),
                 textoErrorAbajo = "Debes introducir un usuario",
-                icono  = {
+                icono = {
                     Icon(
-                        painterResource(R.drawable.usuario), "", tint =  MaterialTheme.colorScheme.primary,
+                        painterResource(R.drawable.usuario),
+                        "",
+                        tint = MaterialTheme.colorScheme.primary,
                         modifier = Modifier.size(32.dp)
                     )
                 },
@@ -114,13 +127,15 @@ val formularioValido = usuario.isNotEmpty() && contraseña.isNotEmpty()
 
             LumTextField(
                 value = contraseña,
-                onValueChange = {contraseña= it},
+                onValueChange = { contraseña = it },
                 vacio = contraseña.isEmpty(),
                 etiqueta = stringResource(R.string.contraseña),
                 textoErrorAbajo = "",
                 icono = {
                     Icon(
-                        painterResource(R.drawable.password), "", tint =  MaterialTheme.colorScheme.primary,
+                        painterResource(R.drawable.password),
+                        "",
+                        tint = MaterialTheme.colorScheme.primary,
                         modifier = Modifier.size(32.dp)
                     )
                 },
@@ -129,14 +144,31 @@ val formularioValido = usuario.isNotEmpty() && contraseña.isNotEmpty()
 
             Spacer(modifier = Modifier.height(40.dp))
             Button(
-                onClick = {backStack.clear()
-                    backStack.add((PantallaListaPeliculasKey))},
+                onClick = {
+
+                        val usuarioDelFormulario = Usuario("", usuario.trim(), contraseña.trim())
+                        coroutineScope.launch {
+                            try {
+                            val respuesta = InstanciaRetrofit.apiUsuario.login(usuarioDelFormulario)
+                            val token = respuesta["token"]
+                            prefs.edit {
+                                putString("token", token).apply()
+                            }
+                                backStack.clear()
+                                backStack.add((PantallaListaPeliculasKey))
+                            } catch (e: retrofit2.HttpException) {
+                                Toast.makeText(context, "Usuario o contraseña incorrectos", Toast.LENGTH_SHORT).show()
+                            } catch (e: Exception) {
+                                Toast.makeText(context, "Error de conexión", Toast.LENGTH_SHORT).show()
+                            }
+                        }
+                },
                 colors = ButtonDefaults.buttonColors(
                     containerColor = MaterialTheme.colorScheme.primary,
                     contentColor = MaterialTheme.colorScheme.onPrimary,
                     disabledContainerColor = MaterialTheme.colorScheme.background,
                     disabledContentColor = MaterialTheme.colorScheme.onPrimary
-                ), modifier = Modifier.fillMaxWidth(0.7f), shape = CircleShape,
+                ), modifier = Modifier.fillMaxWidth(0.8f), shape = CircleShape,
                 enabled = formularioValido
             ) {
                 Text(
@@ -148,6 +180,7 @@ val formularioValido = usuario.isNotEmpty() && contraseña.isNotEmpty()
 
             }
         }
+
         Row(
             modifier = Modifier
                 .fillMaxWidth()
@@ -162,7 +195,7 @@ val formularioValido = usuario.isNotEmpty() && contraseña.isNotEmpty()
                 color = MaterialTheme.colorScheme.onPrimary
             )
             Button(
-                onClick = {backStack.add(PantallaRegistroKey)},
+                onClick = { backStack.add(PantallaRegistroKey) },
                 contentPadding = PaddingValues(start = 8.dp),
                 colors = ButtonDefaults.buttonColors(
                     containerColor = Color.Transparent,

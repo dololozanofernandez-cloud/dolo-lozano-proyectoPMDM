@@ -1,6 +1,7 @@
 package com.example.apppeliculas.ui.pantallas
 
 import android.content.Context
+import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -10,6 +11,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Button
@@ -21,6 +23,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -37,11 +40,17 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation3.runtime.NavBackStack
 import androidx.navigation3.runtime.NavKey
 import com.example.apppeliculas.R
+import com.example.apppeliculas.bbdd.remote.InstanciaRetrofit
+import com.example.apppeliculas.modelo.Usuario
+import com.example.apppeliculas.navegacion.PantallaCrearPeliculaKey
+import com.example.apppeliculas.navegacion.PantallaListaPeliculasKey
 import com.example.apppeliculas.navegacion.PantallaLoginKey
 import com.example.apppeliculas.navegacion.PantallaRegistroKey
 import com.example.apppeliculas.ui.componentes.LumTextField
 import com.example.apppeliculas.ui.theme.Fondo
 import com.example.apppeliculas.ui.theme.primario
+import kotlinx.coroutines.launch
+import retrofit2.HttpException
 
 @Composable
 fun PantallaRegistro(backStack: NavBackStack<NavKey>) {
@@ -49,17 +58,23 @@ fun PantallaRegistro(backStack: NavBackStack<NavKey>) {
     val context = LocalContext.current
     val prefs = context.getSharedPreferences("datos_app", Context.MODE_PRIVATE)
     var usuario by rememberSaveable() { mutableStateOf("") }
-    var email by rememberSaveable() { mutableStateOf("") }
+    var email: String by rememberSaveable() { mutableStateOf("") }
     var contraseña by rememberSaveable() { mutableStateOf("") }
     var contraseñaRep by rememberSaveable() { mutableStateOf("") }
 
-    var formularioValido = usuario.isNotEmpty() && email.isNotEmpty() && contraseña.isNotEmpty() && contraseña == contraseñaRep
+
+    val formularioValido = usuario.isNotEmpty() &&
+            email.contains("@") &&
+            contraseña.isNotEmpty() &&
+            contraseña == contraseñaRep
+
+    val coroutineScope = rememberCoroutineScope()
     Column(
         modifier = Modifier
             .fillMaxSize()
             .background(
               MaterialTheme.colorScheme.background
-            )
+            ).padding(16.dp)
     ) {
         Column(
             modifier = Modifier
@@ -68,13 +83,13 @@ fun PantallaRegistro(backStack: NavBackStack<NavKey>) {
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
 
-            Spacer(modifier = Modifier.height(160.dp))
+            Spacer(modifier = Modifier.height(100.dp))
             Text(
                 text = "LUMIÈRE",
                 fontSize = 70.sp,
                 fontWeight = FontWeight.Bold,
                 fontFamily = FontFamily.SansSerif,
-                color =  MaterialTheme.colorScheme.primary
+                color = MaterialTheme.colorScheme.primary
             )
             Spacer(modifier = Modifier.height(25.dp))
 
@@ -86,7 +101,9 @@ fun PantallaRegistro(backStack: NavBackStack<NavKey>) {
                 textoErrorAbajo = "Debes introducir un usuario",
                 icono = {
                     Icon(
-                        painterResource(R.drawable.usuario), "", tint = MaterialTheme.colorScheme.primary,
+                        painterResource(R.drawable.usuario),
+                        "",
+                        tint = MaterialTheme.colorScheme.primary,
                         modifier = Modifier.size(32.dp)
                     )
                 },
@@ -102,7 +119,9 @@ fun PantallaRegistro(backStack: NavBackStack<NavKey>) {
                 textoErrorAbajo = "Debes introducir un correo",
                 icono = {
                     Icon(
-                        painterResource(R.drawable.email), "", tint = MaterialTheme.colorScheme.primary,
+                        painterResource(R.drawable.email),
+                        "",
+                        tint = MaterialTheme.colorScheme.primary,
                         modifier = Modifier.size(32.dp)
                     )
                 },
@@ -118,7 +137,9 @@ fun PantallaRegistro(backStack: NavBackStack<NavKey>) {
                 textoErrorAbajo = "Introduce una contraseña",
                 icono = {
                     Icon(
-                        painterResource(R.drawable.password), "", tint = MaterialTheme.colorScheme.primary,
+                        painterResource(R.drawable.password),
+                        "",
+                        tint = MaterialTheme.colorScheme.primary,
                         modifier = Modifier.size(32.dp)
                     )
                 },
@@ -134,7 +155,9 @@ fun PantallaRegistro(backStack: NavBackStack<NavKey>) {
                 "Contraseñas no iguales",
                 {
                     Icon(
-                        painterResource(R.drawable.password), "", tint = MaterialTheme.colorScheme.primary,
+                        painterResource(R.drawable.password),
+                        "",
+                        tint = MaterialTheme.colorScheme.primary,
                         modifier = Modifier.size(32.dp)
                     )
                 },
@@ -143,62 +166,111 @@ fun PantallaRegistro(backStack: NavBackStack<NavKey>) {
             Spacer(modifier = Modifier.height(45.dp))
             Button(
                 onClick = {
-                    prefs.edit().putString("usuario", usuario).apply()
-                    if (backStack.size > 1) {
-                        backStack.removeAt(backStack.size - 1)
+
+                    if (email.isBlank() || contraseña.isBlank() || usuario.isBlank()) {
+                        Toast.makeText(
+                            context,
+                            "Por favor, rellena todos los campos",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                        return@Button
                     }
 
+                    coroutineScope.launch {
+                        try {
+
+                            val nuevoUsuario = Usuario("", email.trim(), contraseña.trim())
+                            val respuesta = InstanciaRetrofit.apiUsuario.registro(nuevoUsuario)
+
+
+                            prefs.edit().putString("usuario", respuesta.nombre).apply()
+
+                            Toast.makeText(context, "¡Registrado con éxito!", Toast.LENGTH_SHORT).show()
+
+                            if (backStack.size > 1) {
+                                backStack.add(PantallaListaPeliculasKey)
+                            }
+
+                        } catch (e: HttpException) {
+
+                            when (e.code()) {
+                                409 -> {
+                                    Toast.makeText(
+                                        context,
+                                        "El correo electrónico ya está registrado.",
+                                        Toast.LENGTH_LONG
+                                    ).show()
+                                }
+                                400 -> {
+                                    Toast.makeText(
+                                        context,
+                                        "Datos inválidos o el usuario ya existe.",
+                                        Toast.LENGTH_LONG
+                                    ).show()
+                                }
+                                else -> {
+                                    Toast.makeText(
+                                        context,
+                                        "Error en el servidor: ${e.code()}",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+                                }
+                            }
+                        } catch (e: Exception) {
+                            e.printStackTrace()
+                            Toast.makeText(
+                                context,
+                                "Error de conexión: No se pudo contactar con el servidor.",
+                                Toast.LENGTH_LONG
+                            ).show()
+                        }
+                    }
                 },
                 colors = ButtonDefaults.buttonColors(
                     containerColor = MaterialTheme.colorScheme.primary,
                     contentColor = MaterialTheme.colorScheme.onPrimary,
                     disabledContainerColor = MaterialTheme.colorScheme.background,
                     disabledContentColor = MaterialTheme.colorScheme.onPrimary
-                ), modifier = Modifier.fillMaxWidth(0.7f), shape = CircleShape,
+                ),
+                modifier = Modifier.fillMaxWidth(0.8f),
+                shape = CircleShape,
                 enabled = formularioValido
             ) {
-                Text(
-                    "Regístrate",
-                    fontSize = 18.sp,
-                    fontFamily = FontFamily.SansSerif
-
-                )
-
+                Text("Registrarse")
             }
-        }
-        Spacer(modifier = Modifier.height(40.dp))
-        Row(
-            modifier = Modifier
-                .fillMaxWidth(),
-            horizontalArrangement = Arrangement.Center,
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Text(
-                "¿Ya eres miembro?",
-                fontSize = 14.sp,
-                fontFamily = FontFamily.SansSerif,
-                color = MaterialTheme.colorScheme.onPrimary
-            )
-            Button(
-                onClick = { backStack.add(PantallaLoginKey) },
-                contentPadding = PaddingValues(start = 8.dp),
-                colors = ButtonDefaults.buttonColors(
-                    containerColor = Color.Transparent,
-                    contentColor = MaterialTheme.colorScheme.primary,
-                    disabledContainerColor = MaterialTheme.colorScheme.background,
-                    disabledContentColor = MaterialTheme.colorScheme.onPrimary
-                )
+            Spacer(modifier = Modifier.height(40.dp))
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth(),
+                horizontalArrangement = Arrangement.Center,
+                verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
-                    "Inicio sesión",
+                    "¿Ya eres miembro?",
                     fontSize = 14.sp,
                     fontFamily = FontFamily.SansSerif,
-                    fontWeight = FontWeight.Bold
-
+                    color = MaterialTheme.colorScheme.onPrimary
                 )
+                Button(
+                    onClick = { backStack.add(PantallaLoginKey) },
+                    contentPadding = PaddingValues(start = 8.dp),
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = Color.Transparent,
+                        contentColor = MaterialTheme.colorScheme.primary,
+                        disabledContainerColor = MaterialTheme.colorScheme.background,
+                        disabledContentColor = MaterialTheme.colorScheme.onPrimary
+                    )
+                ) {
+                    Text(
+                        "Inicio sesión",
+                        fontSize = 14.sp,
+                        fontFamily = FontFamily.SansSerif,
+                        fontWeight = FontWeight.Bold
+
+                    )
+                }
+                Spacer(modifier = Modifier.height(50.dp))
             }
         }
     }
-
-
 }

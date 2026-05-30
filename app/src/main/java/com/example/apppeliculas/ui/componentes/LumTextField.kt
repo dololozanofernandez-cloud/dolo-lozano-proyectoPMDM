@@ -98,7 +98,8 @@ fun LumTextField(
                 PasswordVisualTransformation('\u2022')
             } else {
                 VisualTransformation.None
-            }
+            },
+            modifier = Modifier.fillMaxWidth(0.8f)
         )
     }
 }

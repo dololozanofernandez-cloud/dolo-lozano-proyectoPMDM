@@ -35,5 +35,4 @@ fun LumBotonAñadir(navKey: NavKey, backStack : NavBackStack<NavKey>) {
             stringResource(R.string.añadir), modifier = Modifier.size(28.dp))
     }
 
-
 }
