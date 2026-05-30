@@ -1,6 +1,7 @@
 package com.example.apppeliculas.bbdd.remote
 
 import com.example.apppeliculas.modelo.Pelicula
+import okhttp3.ResponseBody
 import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET
@@ -35,5 +36,5 @@ interface PeliculasApiService {
         @Header("Authorization") token: String,
         @Path("id") id: String,
         @Body pelicula: Pelicula
-    ): Pelicula
+    ): ResponseBody
 }
